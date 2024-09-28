@@ -1,5 +1,6 @@
 import asyncio
 import os
+
 from cartesia import AsyncCartesia
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -43,7 +44,7 @@ While the turmoil has pushed various developers to share their thoughts online, 
 ---
 """
 
-PROMPT = f"""
+PROMPT = """
 Read the following summary of a currently unfolding drama in the tech industry.
 
 Write a transcript for a 40s TikTok video that presents current events and news in a fast-paced attention-captivating way.
@@ -57,15 +58,15 @@ This script will be read aloud by a narrator so don't include emojis, markdown, 
 Don't add filler words or phrases like "let's begin", just get to the meat of the content.
 
 ```
-{SUMMARY}
+{summary}
 ```
 """
 
 
-async def generate_transcript():
+async def generate_transcript(summary: str):
     response = openai_client.chat.completions.create(
         model="gpt-4o",
-        messages=[{"role": "user", "content": PROMPT}],
+        messages=[{"role": "user", "content": PROMPT.format(summary=summary)}],
     )
     print(response)
     transcript = response.choices[0].message.content
@@ -76,13 +77,13 @@ async def generate_transcript():
 sample_rate = 44100
 
 
-def compute_duration(total_bytes):
+def compute_duration(total_bytes: int):
     bytes_per_sample = 4
     duration_seconds = total_bytes / (bytes_per_sample * sample_rate)
     return duration_seconds
 
 
-async def send_transcripts(ctx):
+async def send_transcripts(ctx, transcript: str):
     # "Friendly Australian Man"
     voice_id = "421b3369-f63f-4b03-8980-37a44df1d4e8"
 
@@ -93,8 +94,6 @@ async def send_transcripts(ctx):
         "encoding": "pcm_f32le",
         "sample_rate": sample_rate,
     }
-
-    transcript = await generate_transcript()
 
     transcript_lines = [line.strip() for line in transcript.split("\n") if line.strip()]
 
@@ -165,14 +164,16 @@ def format_time(seconds):
     return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d},{milliseconds:03d}"
 
 
-async def main():
+async def generate_audio(summary: str):
     client = AsyncCartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
 
     ws = await client.tts.websocket()
 
     ctx = ws.context()
 
-    send_task = asyncio.create_task(send_transcripts(ctx))
+    transcript = await generate_transcript(summary)
+
+    send_task = asyncio.create_task(send_transcripts(ctx, transcript))
     listen_task = asyncio.create_task(receive_audio(ctx))
 
     _, total_bytes = await asyncio.gather(send_task, listen_task)
@@ -212,4 +213,4 @@ async def main():
     print("Done.")
 
 
-asyncio.run(main())
+asyncio.run(generate_audio(SUMMARY))
