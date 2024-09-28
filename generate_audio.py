@@ -28,6 +28,8 @@ In the end, this drama hits right at the heart of open-source: trust, growth, an
 Stay tuned, this isn’t over…
 """
 
+sample_rate = 44100
+
 
 async def send_transcripts(ctx):
     # "Friendly Australian Man"
@@ -38,7 +40,7 @@ async def send_transcripts(ctx):
     output_format = {
         "container": "raw",
         "encoding": "pcm_f32le",
-        "sample_rate": 44100,
+        "sample_rate": sample_rate,
     }
 
     transcript_lines = [line.strip() for line in TRANSCRIPT.split("\n") if line.strip()]
@@ -57,12 +59,14 @@ async def send_transcripts(ctx):
 
 
 async def receive_audio(ctx):
+    total_bytes = 0
     with open("audio.pcm", "wb") as output_file, open("captions.srt", "w") as srt_file:
         subtitle_count = 0
         async for chunk in ctx.receive():
             if "audio" in chunk:
                 buffer = chunk["audio"]
                 output_file.write(buffer)
+                total_bytes += len(buffer)
             if "word_timestamps" in chunk:
                 word_timestamps = chunk["word_timestamps"]
                 words = word_timestamps["words"]
@@ -78,6 +82,8 @@ async def receive_audio(ctx):
                     srt_file.write(f"{start_time} --> {end_time}\n")
                     srt_file.write(f"{word}\n\n")
 
+    return total_bytes
+
 
 def format_time(seconds):
     hours, remainder = divmod(seconds, 3600)
@@ -86,7 +92,7 @@ def format_time(seconds):
     return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d},{milliseconds:03d}"
 
 
-async def stream_and_listen():
+async def main():
     client = AsyncCartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
 
     ws = await client.tts.websocket()
@@ -96,10 +102,40 @@ async def stream_and_listen():
     send_task = asyncio.create_task(send_transcripts(ctx))
     listen_task = asyncio.create_task(receive_audio(ctx))
 
-    await asyncio.gather(send_task, listen_task)
+    _, total_bytes = await asyncio.gather(send_task, listen_task)
 
-    await ws.close()
-    await client.close()
+    # Calculate duration
+    bytes_per_sample = 4
+    duration_seconds = total_bytes / (bytes_per_sample * sample_rate)
+
+    # fmt: off
+    ffmpeg_command = [
+        "ffmpeg",
+        "-f", "lavfi",
+        "-i", f"color=c=black:s=1920x1080:d={duration_seconds}",
+        "-f", "f32le",
+        "-ar", f"{sample_rate}",
+        "-ac", "1",
+        "-i", "audio.pcm",
+        "-vf", "subtitles=captions.srt:force_style='FontSize=50,PrimaryColour=&HFFFFFF&'",
+        "-c:a", "aac",
+        "-b:a", "192k",
+        "-shortest",
+        "output.mp4"
+    ]
+    # fmt: on
+
+    process = await asyncio.create_subprocess_exec(
+        *ffmpeg_command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+
+    stdout, stderr = await process.communicate()
+
+    if process.returncode != 0:
+        print(f"Error running FFmpeg command: {stderr.decode()}")
+        raise RuntimeError("FFmpeg command failed")
+
+    print("DONE. Saved to output.mp4")
 
 
-asyncio.run(stream_and_listen())
+asyncio.run(main())
