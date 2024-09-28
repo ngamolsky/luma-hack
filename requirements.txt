@@ -5,3 +5,5 @@ aiohttp
 boto3
 pyairtable
 numpy
+pillow
+tenacity

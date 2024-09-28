@@ -40,9 +40,11 @@ async def process_item(item):
     elif item.type == "meme":
         print("Finding meme URL")
         meme_url = find_meme(item.stock_image_description)
+        print("Found meme URL", meme_url)
+
         print("Creating meme backdrop")
         meme_backdrop = create_meme_backdrop(meme_url.url)
-        print("Uploading meme backdrop to Cloudflare")
+        print("Uploading meme to Cloudflare")
         url = await upload_to_cloudflare(meme_backdrop)
         print("Generating Luma video for meme")
         luma_video_id = await generate_luma_video(prompt=None, start_image_url=url)
@@ -95,7 +97,6 @@ async def main():
     storyboard = generate_storyboard(SOURCE_MARKDOWN, duration_seconds)
 
     print("Generated storyboard")
-    print("Fetching all resources")
     tweet_files, video_results = await fetch_all_resources(storyboard.items)
 
     combined_resources = []
