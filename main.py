@@ -11,6 +11,7 @@ from generate_audio import generate_audio
 from ideogram import generate_ideo_image
 from luma import generate_luma_video, poll_generation
 from meme import create_meme_backdrop
+from mux_audio_and_video import mux_audio_and_video
 from openai_client import SOURCE_MARKDOWN, find_meme, generate_storyboard
 from twitter_capture import capture_tweets
 from utils import clear_directory
@@ -144,6 +145,7 @@ async def main():
     print("Combining clips")
     combine_clips(combined_resources, output_file="output.mp4")
     print("Finished combining clips")
+    await mux_audio_and_video()
     main_end_time = time.time()
     print(
         f"Main function completed in {timedelta(seconds=main_end_time - main_start_time)}"

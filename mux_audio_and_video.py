@@ -3,16 +3,13 @@ import asyncio
 sample_rate = 44100
 
 
-async def mux_audio_and_video(
-    audio_path: str, captions_path: str, duration_seconds: int
-):
+async def mux_audio_and_video():
     print("Encoding video file...")
 
     # fmt: off
     ffmpeg_command = [
         "ffmpeg",
-        "-f", "lavfi",
-        "-i", f"color=c=black:s=1920x1080:d={duration_seconds}",
+        "-i", "output.mp4",
         "-f", "f32le",
         "-ar", f"{sample_rate}",
         "-ac", "1",
@@ -20,8 +17,9 @@ async def mux_audio_and_video(
         "-vf", "subtitles=captions.srt:force_style='FontSize=50,PrimaryColour=&HFFFFFF&'",
         "-c:a", "aac",
         "-b:a", "192k",
+        "-c:v", "copy",
         "-shortest",
-        "output.mp4"
+        "final_output.mp4"
     ]
     # fmt: on
 
