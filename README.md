@@ -5,6 +5,7 @@
 - OPENAI_API_KEY go to https://platform.openai.com/api-keys
 - LUMAAI_API_KEY go to https://lumalabs.ai/dream-machine/api/keys
 - AIRTABLE_API_KEY go to https://discord.com/channels/822583790773862470/1287822195527127145/1289696842845655207
+- CARTESIA_API_KEY go to https://play.cartesia.ai/console
 
 ## Running luma.ipynb in VSCode
 
@@ -16,6 +17,9 @@ Note: all dependencies are now located inside a cell.
 !pip install tweet-capture
 !pip install lumaai
 !pip install pyairtable
+!pip install boto3
+!pip install pillow # for PIL
+!pip install pydantic
 
 from dotenv import load_dotenv
 # Load environment variables
