@@ -2,10 +2,9 @@ import json
 import os
 from typing import List, Literal, Union
 
+from openai import OpenAI
 from pyairtable import Api
 from pydantic import BaseModel, Field
-
-from openai import OpenAI
 
 api = Api(os.environ["AIRTABLE_API_KEY"])
 table = api.table("appi0R6F1ckhy8JpZ", "table1")

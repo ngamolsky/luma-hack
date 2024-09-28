@@ -21,6 +21,8 @@ start_time = time.time()
 # Load environment variables
 load_dotenv()
 
+TOTAL_DURATION = 40
+
 
 async def process_item(item):
     item_start_time = time.time()
