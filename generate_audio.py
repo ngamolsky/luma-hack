@@ -30,7 +30,8 @@ Stay tuned, this isn’t over…
 
 
 async def send_transcripts(ctx):
-    voice_id = "87748186-23bb-4158-a1eb-332911b0b708"
+    # "Friendly Australian Man"
+    voice_id = "421b3369-f63f-4b03-8980-37a44df1d4e8"
 
     model_id = "sonic-english"
 
