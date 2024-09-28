@@ -31,6 +31,12 @@ Stay tuned, this isn’t over…
 sample_rate = 44100
 
 
+def compute_duration(total_bytes):
+    bytes_per_sample = 4
+    duration_seconds = total_bytes / (bytes_per_sample * sample_rate)
+    return duration_seconds
+
+
 async def send_transcripts(ctx):
     # "Friendly Australian Man"
     voice_id = "421b3369-f63f-4b03-8980-37a44df1d4e8"
@@ -104,9 +110,9 @@ async def main():
 
     _, total_bytes = await asyncio.gather(send_task, listen_task)
 
-    # Calculate duration
-    bytes_per_sample = 4
-    duration_seconds = total_bytes / (bytes_per_sample * sample_rate)
+    duration_seconds = compute_duration(total_bytes)
+
+    print(f"Generated {duration_seconds} seconds of audio")
 
     # fmt: off
     ffmpeg_command = [
