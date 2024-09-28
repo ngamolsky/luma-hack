@@ -1,3 +1,0 @@
-lumaai
-openai
-python-dotenv
