@@ -59,6 +59,10 @@ async def send_transcripts(ctx):
             continue_=True,
             output_format=output_format,
             add_timestamps=True,
+            _experimental_voice_controls={
+                "speed": 0.3,
+                "emotion": ["positivity", "curiosity"],
+            },
         )
 
     await ctx.no_more_inputs()
