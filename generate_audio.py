@@ -57,7 +57,8 @@ async def send_transcripts(ctx):
 
 
 async def receive_audio(ctx):
-    with open("output.pcm", "wb") as output_file:
+    with open("audio.pcm", "wb") as output_file, open("captions.srt", "w") as srt_file:
+        subtitle_count = 0
         async for chunk in ctx.receive():
             if "audio" in chunk:
                 buffer = chunk["audio"]
@@ -67,8 +68,22 @@ async def receive_audio(ctx):
                 words = word_timestamps["words"]
                 start_times = word_timestamps["start"]
                 end_times = word_timestamps["end"]
+
                 for word, start, end in zip(words, start_times, end_times):
-                    print(f"Word: {word}, Start: {start}, End: {end}")
+                    subtitle_count += 1
+                    start_time = format_time(start)
+                    end_time = format_time(end)
+
+                    srt_file.write(f"{subtitle_count}\n")
+                    srt_file.write(f"{start_time} --> {end_time}\n")
+                    srt_file.write(f"{word}\n\n")
+
+
+def format_time(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    milliseconds = int((seconds % 1) * 1000)
+    return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d},{milliseconds:03d}"
 
 
 async def stream_and_listen():
