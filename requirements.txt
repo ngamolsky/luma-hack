@@ -4,3 +4,4 @@ python-dotenv
 aiohttp
 boto3
 pyairtable
+numpy
