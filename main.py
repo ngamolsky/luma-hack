@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 from cloudflare import upload_to_cloudflare
 from combine_clips import combine_clips
+from generate_audio import generate_audio
 from ideogram import generate_ideo_image
 from luma import generate_luma_video, poll_generation
 from meme import create_meme_backdrop
@@ -19,8 +20,6 @@ start_time = time.time()
 
 # Load environment variables
 load_dotenv()
-
-TOTAL_DURATION = 10
 
 
 async def process_item(item):
@@ -90,7 +89,8 @@ async def main():
     main_start_time = time.time()
     print("Starting main function")
     print("Generating storyboard")
-    storyboard = generate_storyboard(SOURCE_MARKDOWN, TOTAL_DURATION)
+    duration_seconds = await generate_audio(SOURCE_MARKDOWN)
+    storyboard = generate_storyboard(SOURCE_MARKDOWN, duration_seconds)
 
     print("Generated storyboard")
     print("Fetching all resources")
