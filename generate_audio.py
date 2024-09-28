@@ -67,27 +67,42 @@ async def send_transcripts(ctx):
 async def receive_audio(ctx):
     total_bytes = 0
     print("Generating audio...")
-    with open("audio.pcm", "wb") as output_file, open("captions.srt", "w") as srt_file:
-        subtitle_count = 0
+    timestamp_chunks = []
+    with open("audio.pcm", "wb") as output_file:
         async for chunk in ctx.receive():
             if "audio" in chunk:
                 buffer = chunk["audio"]
                 output_file.write(buffer)
                 total_bytes += len(buffer)
             if "word_timestamps" in chunk:
-                word_timestamps = chunk["word_timestamps"]
-                words = word_timestamps["words"]
-                start_times = word_timestamps["start"]
-                end_times = word_timestamps["end"]
+                timestamp_chunks.append(chunk)
 
-                subtitle_count += 1
-                start_time = format_time(start_times[0])
+    print("Generating captions...")
+    with open("captions.srt", "w") as srt_file:
+        subtitle_count = 0
+        for i, chunk in enumerate(timestamp_chunks):
+            word_timestamps = chunk["word_timestamps"]
+            words = word_timestamps["words"]
+            start_times = word_timestamps["start"]
+            end_times = word_timestamps["end"]
+
+            subtitle_count += 1
+            start_time = format_time(start_times[0])
+            end_time = None
+
+            # Peek ahead to grab the end time of the next chunk
+            if i < len(timestamp_chunks) - 1:
+                next_chunk = timestamp_chunks[i + 1]
+                next_start_time = next_chunk["word_timestamps"]["start"][0]
+                end_time = format_time(next_start_time)
+            else:
                 end_time = format_time(end_times[-1])
-                accumulated_words = " ".join(words)
 
-                srt_file.write(f"{subtitle_count}\n")
-                srt_file.write(f"{start_time} --> {end_time}\n")
-                srt_file.write(f"{accumulated_words}\n\n")
+            accumulated_words = " ".join(words)
+
+            srt_file.write(f"{subtitle_count}\n")
+            srt_file.write(f"{start_time} --> {end_time}\n")
+            srt_file.write(f"{accumulated_words}\n\n")
 
     return total_bytes
 
