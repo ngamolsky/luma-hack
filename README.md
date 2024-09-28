@@ -15,6 +15,7 @@ Note: all dependencies are now located inside a cell.
 !pip install requests
 !pip install tweet-capture
 !pip install lumaai
+!pip install pyairtable
 
 from dotenv import load_dotenv
 # Load environment variables
