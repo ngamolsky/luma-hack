@@ -1,7 +1,7 @@
-from typing import List, Dict, Union
+import os
 import subprocess
 import tempfile
-import os
+from typing import Dict, List, Union
 
 clips: List[Dict[str, Union[str, int]]] = [
     {
@@ -69,7 +69,3 @@ def combine_clips(clips: List[Dict[str, Union[str, int]]], output_file: str):
             output_file
         ], check=True)
         # fmt: on
-
-
-combine_clips(clips, "output.mp4")
-print("Video clips combined successfully.")
