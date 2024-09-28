@@ -1,6 +1,6 @@
-from cartesia import AsyncCartesia
 import asyncio
 import os
+from cartesia import AsyncCartesia
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -29,12 +29,8 @@ Stay tuned, this isn’t over…
 """
 
 
-async def write_stream():
-    client = AsyncCartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
-
-    # "Friendly Australian Man"
-    voice_id = "421b3369-f63f-4b03-8980-37a44df1d4e8"
-    voice = client.voices.get(id=voice_id)
+async def send_transcripts(ctx):
+    voice_id = "87748186-23bb-4158-a1eb-332911b0b708"
 
     model_id = "sonic-english"
 
@@ -44,23 +40,50 @@ async def write_stream():
         "sample_rate": 44100,
     }
 
-    output_file = open("output.pcm", "wb")
-    chunk_count = 0
+    transcript_lines = [line.strip() for line in TRANSCRIPT.split("\n") if line.strip()]
 
-    async for chunk in await client.tts.sse(
-        model_id=model_id,
-        transcript=TRANSCRIPT,
-        voice_embedding=voice["embedding"],
-        stream=True,
-        output_format=output_format,
-    ):
-        buffer = chunk["audio"]
-        output_file.write(buffer)
-        chunk_count += 1
-        print(f"Chunks received: {chunk_count}")
+    for transcript in transcript_lines:
+        await ctx.send(
+            model_id=model_id,
+            transcript=transcript,
+            voice_id=voice_id,
+            continue_=True,
+            output_format=output_format,
+            add_timestamps=True,
+        )
 
-    output_file.close()
+    await ctx.no_more_inputs()
+
+
+async def receive_audio(ctx):
+    with open("output.pcm", "wb") as output_file:
+        async for chunk in ctx.receive():
+            if "audio" in chunk:
+                buffer = chunk["audio"]
+                output_file.write(buffer)
+            if "word_timestamps" in chunk:
+                word_timestamps = chunk["word_timestamps"]
+                words = word_timestamps["words"]
+                start_times = word_timestamps["start"]
+                end_times = word_timestamps["end"]
+                for word, start, end in zip(words, start_times, end_times):
+                    print(f"Word: {word}, Start: {start}, End: {end}")
+
+
+async def stream_and_listen():
+    client = AsyncCartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
+
+    ws = await client.tts.websocket()
+
+    ctx = ws.context()
+
+    send_task = asyncio.create_task(send_transcripts(ctx))
+    listen_task = asyncio.create_task(receive_audio(ctx))
+
+    await asyncio.gather(send_task, listen_task)
+
+    await ws.close()
     await client.close()
 
 
-asyncio.run(write_stream())
+asyncio.run(stream_and_listen())
