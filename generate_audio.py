@@ -148,33 +148,6 @@ async def generate_audio(summary: str):
     duration_seconds = compute_duration(total_bytes)
 
     print(f"Generated {duration_seconds} seconds of audio.")
-    print("Encoding video file...")
+    print("Saved audio.pcm and captions.srt")
 
-    # fmt: off
-    ffmpeg_command = [
-        "ffmpeg",
-        "-f", "lavfi",
-        "-i", f"color=c=black:s=1920x1080:d={duration_seconds}",
-        "-f", "f32le",
-        "-ar", f"{sample_rate}",
-        "-ac", "1",
-        "-i", "audio.pcm",
-        "-vf", "subtitles=captions.srt:force_style='FontSize=50,PrimaryColour=&HFFFFFF&'",
-        "-c:a", "aac",
-        "-b:a", "192k",
-        "-shortest",
-        "output.mp4"
-    ]
-    # fmt: on
-
-    process = await asyncio.create_subprocess_exec(
-        *ffmpeg_command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-    )
-
-    stdout, stderr = await process.communicate()
-
-    if process.returncode != 0:
-        print(f"Error running FFmpeg command: {stderr.decode()}")
-        raise RuntimeError("FFmpeg command failed")
-
-    print("Done.")
+    return duration_seconds
