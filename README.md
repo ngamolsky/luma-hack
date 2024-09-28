@@ -1,7 +1,7 @@
 
 ## get API keys and put in .env
 
-- IDEOGRAM_API_KEY go to https://ideogram.ai/manage-api yo'll have to put your credit card on file...
+- IDEOGRAM_API_KEY go to https://ideogram.ai/manage-api you'll have to put your credit card on file...
 - OPENAI_API_KEY go to https://platform.openai.com/api-keys
 - LUMAAI_API_KEY go to https://lumalabs.ai/dream-machine/api/keys
 - AIRTABLE_API_KEY go to https://discord.com/channels/822583790773862470/1287822195527127145/1289696842845655207

@@ -1,3 +1,6 @@
 lumaai
 openai
 python-dotenv
+aiohttp
+boto3
+pyairtable
