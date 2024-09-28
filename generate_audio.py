@@ -66,6 +66,7 @@ async def send_transcripts(ctx):
 
 async def receive_audio(ctx):
     total_bytes = 0
+    print("Generating audio...")
     with open("audio.pcm", "wb") as output_file, open("captions.srt", "w") as srt_file:
         subtitle_count = 0
         async for chunk in ctx.receive():
@@ -79,14 +80,14 @@ async def receive_audio(ctx):
                 start_times = word_timestamps["start"]
                 end_times = word_timestamps["end"]
 
-                for word, start, end in zip(words, start_times, end_times):
-                    subtitle_count += 1
-                    start_time = format_time(start)
-                    end_time = format_time(end)
+                subtitle_count += 1
+                start_time = format_time(start_times[0])
+                end_time = format_time(end_times[-1])
+                accumulated_words = " ".join(words)
 
-                    srt_file.write(f"{subtitle_count}\n")
-                    srt_file.write(f"{start_time} --> {end_time}\n")
-                    srt_file.write(f"{word}\n\n")
+                srt_file.write(f"{subtitle_count}\n")
+                srt_file.write(f"{start_time} --> {end_time}\n")
+                srt_file.write(f"{accumulated_words}\n\n")
 
     return total_bytes
 
@@ -112,7 +113,8 @@ async def main():
 
     duration_seconds = compute_duration(total_bytes)
 
-    print(f"Generated {duration_seconds} seconds of audio")
+    print(f"Generated {duration_seconds} seconds of audio.")
+    print("Encoding video file...")
 
     # fmt: off
     ffmpeg_command = [
@@ -141,7 +143,7 @@ async def main():
         print(f"Error running FFmpeg command: {stderr.decode()}")
         raise RuntimeError("FFmpeg command failed")
 
-    print("DONE. Saved to output.mp4")
+    print("Done.")
 
 
 asyncio.run(main())
