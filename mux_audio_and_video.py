@@ -17,7 +17,9 @@ async def mux_audio_and_video():
         "-vf", "subtitles=captions.srt:force_style='FontSize=50,PrimaryColour=&HFFFFFF&'",
         "-c:a", "aac",
         "-b:a", "192k",
-        "-c:v", "copy",
+        "-c:v", "libx264",
+        "-preset", "medium",
+        "-crf", "23",
         "-shortest",
         "final_output.mp4"
     ]
