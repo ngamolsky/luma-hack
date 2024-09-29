@@ -104,11 +104,18 @@ async def main():
         if item.type == "twitter_screenshot" and item.twitter_url:
             tweet_id = item.twitter_url.split("/")[-1]
 
-            if any(tweet_id in tweet_file for tweet_file in tweet_files):
-                url = tweet_files[tweet_index]
-                print(f"Adding tweet screenshot: {url}")
-                combined_resources.append({"type": "image", "url": url, "duration": 2})
-                tweet_index += 1
+            if not any(tweet_id in tweet_file for tweet_file in tweet_files):
+                continue
+            url = tweet_files[tweet_index]
+            print(f"Adding tweet screenshot: {url}")
+            combined_resources.append(
+                {
+                    "type": "image",
+                    "url": url,
+                    "duration": 2,
+                }
+            )
+            tweet_index += 1
         elif item.type in ["stock_video", "meme"]:
             print(f"Adding video: {video_results[image_index].assets.video}")
             combined_resources.append(
