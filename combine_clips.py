@@ -4,11 +4,11 @@ import tempfile
 from typing import Dict, List, Union
 
 
-def download_file(url: str, output_path: str):
+def download_file(url: str, output_path: str, duration: int):
     subprocess.run(["curl", "-L", url, "-o", output_path], check=True)
-    # This will fetch the video and trim it to just the first 2.4 seconds
+    # TODO: Uncomment the following to fetch the video trimming it to just the {duration} seconds
     # subprocess.run(
-    #     ["ffmpeg", "-i", url, "-t", "2.4", "-c", "copy", output_path],
+    #     ["ffmpeg", "-i", url, "-t", duration, "-c", "copy", output_path],
     #     check=True,
     # )
 
@@ -20,7 +20,7 @@ def combine_clips(clips: List[Dict[str, Union[str, int]]], output_file: str):
             if clip["type"] == "video":
                 print(f"Loading video {i}...")
                 file_path = os.path.join(temp_dir, f"video_{i}.mp4")
-                download_file(clip["url"], file_path)
+                download_file(clip["url"], file_path, clip["duration"])
                 input_files.append(f"file '{file_path}'")
             elif clip["type"] == "image":
                 print(f"Loading image {i}...")
