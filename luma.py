@@ -39,7 +39,14 @@ async def poll_generation(
         print(
             f"Attempt {attempt + 1}/{max_attempts} to poll generation {generation_id}"
         )
-        status = await client.generations.get(generation_id)
+        try:
+            status = await client.generations.get(generation_id)
+        except Exception as e:
+            print(f"Error getting generation status: {e}")
+            print(f"Waiting {delay} seconds before next attempt")
+            time.sleep(delay)
+            continue
+
         print(f"Current status: {status.state}")
         if status.state == "completed":
             print(f"Generation {generation_id} completed successfully")
