@@ -2,6 +2,7 @@ import asyncio
 import os
 import time
 from datetime import timedelta
+from typing import List
 
 import load_env  # noqa: F401
 from cloudflare import upload_to_cloudflare
@@ -11,7 +12,12 @@ from ideogram import generate_ideo_image
 from luma import generate_luma_video, poll_generation
 from meme import create_meme_backdrop
 from mux_audio_and_video import mux_audio_and_video
-from openai_client import SOURCE_MARKDOWN, find_meme, generate_storyboard
+from openai_client import (
+    SOURCE_MARKDOWN,
+    StoryboardItem,
+    find_meme,
+    generate_storyboard,
+)
 from twitter_capture import capture_tweets
 from utils import clear_directory
 
@@ -19,7 +25,7 @@ print("Importing modules and loading environment variables")
 start_time = time.time()
 
 
-async def process_item(item):
+async def process_item(item: StoryboardItem):
     item_start_time = time.time()
     print(f"Processing item of type: {item.type}")
     if item.type == "twitter_screenshot":
@@ -52,7 +58,7 @@ async def process_item(item):
     return result
 
 
-async def fetch_all_resources(processed_items):
+async def fetch_all_resources(processed_items: List[StoryboardItem]):
     fetch_start_time = time.time()
     print("Fetching all resources")
     tweet_urls = [

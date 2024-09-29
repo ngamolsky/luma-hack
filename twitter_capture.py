@@ -1,5 +1,6 @@
 import asyncio
 import os
+from typing import List
 
 from PIL import Image
 from tweetcapture import TweetCapture
@@ -70,7 +71,7 @@ def create_backdrop(tweet_image_path, output_path):
     return output_path
 
 
-async def capture_tweets(tweet_urls):
+async def capture_tweets(tweet_urls: List[str | None]):
     port = 9222
     tasks = []
     for url in tweet_urls:

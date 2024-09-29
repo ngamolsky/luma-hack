@@ -31,7 +31,9 @@ async def generate_luma_video(
 
 
 async def poll_generation(
-    generation_id, max_attempts=MAX_ATTEMPTS, delay=POLL_INTERVAL
+    generation_id: str,
+    max_attempts=MAX_ATTEMPTS,
+    delay=POLL_INTERVAL,
 ):
     for attempt in range(max_attempts):
         print(
