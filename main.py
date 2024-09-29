@@ -18,8 +18,6 @@ from utils import clear_directory
 print("Importing modules and loading environment variables")
 start_time = time.time()
 
-TOTAL_DURATION = 40
-
 
 async def process_item(item):
     item_start_time = time.time()
