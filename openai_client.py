@@ -88,7 +88,7 @@ def generate_storyboard(source_markdown: str, total_duration: int) -> Storyboard
             {"role": "user", "content": source_markdown},
             {
                 "role": "user",
-                "content": f"The total duration of the video is {total_duration} seconds.",
+                "content": f"The total duration of the video is {total_duration} seconds, you must generate at least {total_duration // 2} storyboard items.",
             },
         ],
         response_format=Storyboard,
