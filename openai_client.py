@@ -78,6 +78,9 @@ class Storyboard(BaseModel):
 
 
 def generate_storyboard(source_markdown: str, total_duration: int) -> Storyboard:
+    # TODO: Here we need ensure that the number of storyboard items is the total duration / 2
+    # Often there will not be enough content to fill the duration.
+    # Also we should ensure that tweets don't get repeated.
     response = client.beta.chat.completions.parse(
         model="gpt-4o-2024-08-06",
         messages=[
