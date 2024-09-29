@@ -12,15 +12,15 @@ openai_client = OpenAI(
 )
 
 PROMPT = """
-Read the following summary of a currently unfolding drama in the tech industry.
+Read the following summary of on or more currently unfolding news stories in the tech industry.
 
-Write a transcript for a 40s TikTok video that presents current events and news in a fast-paced attention-captivating way.
+Write a transcript for a 40 second TikTok video that presents current events and news in a fast-paced attention-captivating way.
 
-This transcript should capture the key points to catch viewers up on what's happening.
+This transcript should capture the key points of each story to catch viewers up on what's happening.
 
 This video should be in the style of a young sarcastic creator. It should be terse, fast-paced, clever, witty, meme filled and often roasting the subjects/products/companies involved.
 
-This script will be read aloud by a narrator so don't include emojis, markdown, ellipsis or any styling.
+This script will be read aloud by a narrator so do not include emojis, markdown, ellipsis, excessive symbols like "$$$" or any styling.
 
 Don't add filler words or phrases like "let's begin", just get to the meat of the content.
 
