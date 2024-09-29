@@ -3,8 +3,7 @@ import os
 import time
 from datetime import timedelta
 
-from dotenv import load_dotenv
-
+import load_env  # noqa: F401
 from cloudflare import upload_to_cloudflare
 from combine_clips import combine_clips
 from generate_audio import generate_audio
@@ -18,9 +17,6 @@ from utils import clear_directory
 
 print("Importing modules and loading environment variables")
 start_time = time.time()
-
-# Load environment variables
-load_dotenv()
 
 TOTAL_DURATION = 40
 
