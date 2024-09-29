@@ -14,7 +14,7 @@ async def mux_audio_and_video():
         "-ar", f"{sample_rate}",
         "-ac", "1",
         "-i", "audio.pcm",
-        "-vf", "subtitles=captions.srt:force_style='FontSize=50,PrimaryColour=&HFFFFFF&'",
+        "-vf", "subtitles=captions.srt:force_style='FontSize=26,PrimaryColour=&HFFFFFF&'",
         "-c:a", "aac",
         "-b:a", "192k",
         "-c:v", "libx264",
