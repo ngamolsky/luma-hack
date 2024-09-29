@@ -7,7 +7,9 @@ ACCOUNT_ID = os.environ.get("R2_ACCOUNT_ID")
 ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID")
 SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY")
 BUCKET_NAME = os.environ.get("R2_BUCKET_NAME")
-CLOUDFLARE_BUCKET_PUBLIC_URL = "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev"
+CLOUDFLARE_BUCKET_PUBLIC_URL = os.environ.get(
+    "R2_BUCKET_PUBLIC_URL", "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev"
+)
 
 s3_client = boto3.client(
     "s3",
