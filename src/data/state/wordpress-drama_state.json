@@ -1,0 +1,125 @@
+{
+    "audio": {
+        "duration": 52.01269841269841,
+        "path": "src/data/output/wordpress-drama/audio.wav"
+    },
+    "script": "WordPress vs. WP Engine\u2014the spicy tech drama you didn't know you needed. WordPress, the open-source hero, suddenly turned villain? They're throwing licensing fees at WP Engine, one of their core allies. Why? Apparently, WP Engine wasn\u2019t \"contributing enough\" to the ecosystem. Really, WordPress? \n\nThe community\u2019s got mixed feelings\u2014like that time you tried pineapple on pizza. Some folks are team Automattic, thinking this'll keep things sustainable. Others? They\u2019re worried about blocking plugins and killing the vibe for innovation. \n\nTech insiders are shaking up their revenue models. Check out NewFoldDigital who've got everyone buzzing about licensing strategies. The fear? An escalation of fees\u2014oh joy. \n\nDespite the chaos, developers are fingers-crossed that WordPress doesn\u2019t shoot itself in the foot and cause a major reputation fallout. It might be time for Automattic to spill the tea on their real motives. Tech community's on edge, watching every move like it\u2019s the finale of a season!",
+    "storyboard": {
+        "scenes": [
+            {
+                "content": {
+                    "description": "Success Kid, sometimes known as I Hate Sandcastles, is a reaction image of a baby at a beach with a smug facial expression. It has been used in image macros to designate either success or frustration. In early 2011, the original image was turned into an advice animal style image macro with captions describing a situation that goes better than expected.",
+                    "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1727942400000/q60xoPCviulRnjeOYfwPSA/N2ek-V7COnntWs5qmPBdes90efZHKm8yUP__NPdxUHDYq0dqEYLnyNqOvbBD85hd5Xsa0PEbWzJGpuK3rzbcR43PIab0jMslj_bIpvp50Hfo7x_8X4jr4-R24LF7QPvSS6HvU7Kb6MK9dHXRaWwTfxdG6V0eLrd0xtfe9JoXg4Q/1vepn7HbnsRnxr230Qap2sHqD_PPiUTqSCpSf4HGufc",
+                    "name": "Success Kid "
+                },
+                "duration": 3.0,
+                "script_chunk": "WordPress vs. WP Engine\u2014the spicy tech drama you didn't know you needed.",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "image_description": "A depiction of WordPress as a hero turned villain, showcasing the transition."
+                },
+                "duration": 2.5,
+                "script_chunk": "WordPress, the open-source hero, suddenly turned villain?",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "image_description": "WordPress logo throwing licensing fees at WP Engine, a core ally."
+                },
+                "duration": 2.5,
+                "script_chunk": "They're throwing licensing fees at WP Engine, one of their core allies.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "tweet_url": "https://twitter.com/jamesivings/status/1839422193681481750"
+                },
+                "duration": 3.0,
+                "script_chunk": "Why? Apparently, WP Engine wasn\u2019t \"contributing enough\" to the ecosystem. Really, WordPress?",
+                "type": "twitter"
+            },
+            {
+                "content": {
+                    "description": "Confused Nick Young, also known as Swaggy P, refers to a reaction image featuring NBA basketball player Nick Young with question marks surrounding his head, which was popularized on Black Twitter to express confusion online, most notably during the Drake and Meek Mill Feud.",
+                    "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1727942400000/WXDUiMPPMOPlWOIKpcmczg/FbtdxymeN2pW4WB-kC1fbVeTl2-QDjdNczEH_AHc76pVbykTrdPkpssTCgkNU5USp933HRx3g64zDQZf8-cfacInMD6aUSd2wDgeGSHiU1iu782T6Zsz2lUlGs7nxozgfOe_hXT711SH5USPwI8QYTbOAscVw9gvT4jLGnHFfKlhjg3BlWCtOZduL7zc7tscaDBNCWbjoYl-fu0PBPP35w/XZgPGWqk87jNdrvVr5Zio4f8-_jVDuDAaNQfqnlRmGE",
+                    "name": "Confused Nick Young"
+                },
+                "duration": 2.5,
+                "script_chunk": "The community\u2019s got mixed feelings\u2014like that time you tried pineapple on pizza.",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "image_description": "Illustration showing people divided into 'team Automattic' and 'worried developers'."
+                },
+                "duration": 3.0,
+                "script_chunk": "Some folks are team Automattic, thinking this'll keep things sustainable.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "tweet_url": "https://twitter.com/arvidkahl/status/1839445536686174387"
+                },
+                "duration": 2.5,
+                "script_chunk": "Others? They\u2019re worried about blocking plugins and killing the vibe for innovation.",
+                "type": "twitter"
+            },
+            {
+                "content": {
+                    "description": "\"That Escalated Quickly\" is a memorable quote said by Ron Burgundy (played by Will Farrell) in a scene from the 2004 comedy film Anchorman: The Legend of Ron Burgundy. In online discussions and comments, the expression can be used in response to a remark or a situation that has quickly gotten out of hand.",
+                    "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1727942400000/9Y5wrmXqKL-cQH0XTY07CQ/MPnPncX3ZQNfddBlre5yXXXlca_h2N8wzRQ6KP27QV4RiK_WvjjWwjiZbnj-uwXcRw4FWLDj8l9pnIiykxyVYHXt06sydwcOVllUXsTV1svLP6P81pmDSQpwKrl_4rzUklEkIh8NNTQRMYxBsZ0LBn7wt1EP1gp-ZmyiPVcdV3c/1IOCwkyu4lIRltpBfXxzUI-t4NQmgXd_Zv7kopKwCuY",
+                    "name": "That Escalated Quickly"
+                },
+                "duration": 3.0,
+                "script_chunk": "Tech insiders are shaking up their revenue models.",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "image_description": "NewFoldDigital buzzing with discussions on licensing strategies."
+                },
+                "duration": 3.0,
+                "script_chunk": "Check out NewFoldDigital who've got everyone buzzing about licensing strategies.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "tweet_url": "https://twitter.com/jessethanley/status/1839569215000588641"
+                },
+                "duration": 2.5,
+                "script_chunk": "The fear? An escalation of fees\u2014oh joy.",
+                "type": "twitter"
+            },
+            {
+                "content": {
+                    "description": "Hide The Pain Harold, also simply referred to as \"Harold\" or \"Maurice\" is the nickname given to a senior stock photography model whose facial expression appears to indicate suppressed pain and/or discomfort.",
+                    "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1727942400000/bSvXsh2IWnaMEZXxTJPpdg/ToDjh9lMspd4Ay8rEF1x_0JP6X2Le04TUx8SG8oc3xdAqaYBOnqOXrqfNFpd4QZgYnX36zU9DPiIa4wugKjOeMXSxrj71ceEafk-7Q9qQ14YCq66YR8DmoUrmhnvTfSvEGPzEot1c2S6_6P_CYBh167kSRX1LZPsrGGp91p67YQ/RTrO-T7sGWdMOT6-Kaz_39wIchrcr-JG3uTMDq9ZKAQ",
+                    "name": "Hide The Pain Harold"
+                },
+                "duration": 2.5,
+                "script_chunk": "Despite the chaos, developers are fingers-crossed that WordPress doesn\u2019t shoot itself in the foot and cause a major reputation fallout.",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "tweet_url": "https://twitter.com/arvidkahl/status/1839445536686174387"
+                },
+                "duration": 2.5,
+                "script_chunk": "It might be time for Automattic to spill the tea on their real motives.",
+                "type": "twitter"
+            },
+            {
+                "content": {
+                    "description": "Think, Mark is a phrase said during a climactic moment of the Amazon Prime show Invincible that began airing in 2021. Used as an exploitable image macro, the main focus of the meme is on the one saying the phrase, which is Omni-Man, a main character and secret antagonist. The brutal way in which the character, voiced by JK Simmons, yells in this scene has inspired many memes to be made of it, as well as various redraws.",
+                    "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1727942400000/p0LFjZ1w4QKemVaCRe-U5Q/exqJZCB1FS0lBpMK3xRYkS9uz-mVMjMukTrVYK3AtoAYM3iqpO-BDtl5viKM5XTzAZOa0iAsrIaNhPxrfe8qfzcN70pIRT4UPXCy3gb10B4TQT2BjsKghyt2iz7thAicGWqbPLVRnCTirPZbVcUx3edpU512Q3Vc474uvVKrSY8/H3Mp95JYpCtIWO3tnESTz_ugh748GqLOzr5PkDaThxc",
+                    "name": "Think, Mark"
+                },
+                "duration": 3.0,
+                "script_chunk": "Tech community's on edge, watching every move like it\u2019s the finale of a season!",
+                "type": "meme"
+            }
+        ]
+    }
+}

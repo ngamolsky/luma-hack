@@ -1,0 +1,123 @@
+{
+    "script": "Alright, buckle up folks! AI's latest social trick is doing laundry! Who knew hiring algorithms would clean up their act? A new study shows AI can help wash away bias in the hiring process. That's right, the robots might just be better at picking who gets hired than humans who come with a truckload of their own biases. Finally, a futuristic twist where machines hire humans\u2014what could possibly go wrong? Imagine getting rejected because a chatbot thinks your resume font screams desperation!\n\nNext, Toyota is throwing shade at itself by going electric. Scrapping their old Prius plans, they're revving up development of new EV batteries. About time the party started, right? Apparently, they're gonna give us 932 miles on one charge by 2027. Tech or sorcery? Either way, Toyota is hoping to convince us they're the new green kings, but we\u2019re still side-eyeing them for taking their sweet time.\n\nThat\u2019s your news fix, catch y'all next time when robots take over Tinder profiles!",
+    "storyboard": {
+        "scenes": [
+            {
+                "content": {
+                    "duration": 2.5,
+                    "image_url": "https://example.com/buckle_up.jpg"
+                },
+                "script_chunk": "Alright, buckle up folks!",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "description": "AI doing laundry meme",
+                    "image_url": "https://example.com/ai_laundry.jpg",
+                    "name": "AI_Laundry"
+                },
+                "script_chunk": "AI's latest social trick is doing laundry!",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "duration": 3.0,
+                    "tweet_url": "https://twitter.com/example/status/123456789"
+                },
+                "script_chunk": "Who knew hiring algorithms would clean up their act?",
+                "type": "twitter"
+            },
+            {
+                "content": {
+                    "duration": 2.5,
+                    "image_url": "https://example.com/study_image.jpg"
+                },
+                "script_chunk": "A new study shows AI can help wash away bias in the hiring process.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "description": "Robots better at hiring than biased humans",
+                    "image_url": "https://example.com/robots_hiring.jpg",
+                    "name": "Robots_Hiring"
+                },
+                "script_chunk": "That's right, the robots might just be better at picking who gets hired than humans who come with a truckload of their own biases.",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "duration": 3.0,
+                    "image_url": "https://example.com/futuristic_twist.jpg"
+                },
+                "script_chunk": "Finally, a futuristic twist where machines hire humans\u2014what could possibly go wrong?",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "description": "Chatbot rejecting resume based on font",
+                    "image_url": "https://example.com/chatbot_rejection.jpg",
+                    "name": "Chatbot_Rejection"
+                },
+                "script_chunk": "Imagine getting rejected because a chatbot thinks your resume font screams desperation!",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "duration": 2.5,
+                    "image_url": "https://example.com/toyota_electric.jpg"
+                },
+                "script_chunk": "Next, Toyota is throwing shade at itself by going electric.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "duration": 2.5,
+                    "image_url": "https://example.com/scrapping_prius.jpg"
+                },
+                "script_chunk": "Scrapping their old Prius plans, they're revving up development of new EV batteries.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "duration": 3.0,
+                    "tweet_url": "https://twitter.com/example/status/987654321"
+                },
+                "script_chunk": "About time the party started, right?",
+                "type": "twitter"
+            },
+            {
+                "content": {
+                    "duration": 2.5,
+                    "image_url": "https://example.com/932_miles.jpg"
+                },
+                "script_chunk": "Apparently, they're gonna give us 932 miles on one charge by 2027.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "description": "Tech or sorcery meme",
+                    "image_url": "https://example.com/tech_sorcery.jpg",
+                    "name": "Tech_Sorcery"
+                },
+                "script_chunk": "Tech or sorcery? Either way, Toyota is hoping to convince us they're the new green kings,",
+                "type": "meme"
+            },
+            {
+                "content": {
+                    "duration": 3.0,
+                    "image_url": "https://example.com/side_eye.jpg"
+                },
+                "script_chunk": "but we\u2019re still side-eyeing them for taking their sweet time.",
+                "type": "generic"
+            },
+            {
+                "content": {
+                    "duration": 2.5,
+                    "image_url": "https://example.com/news_fix.jpg"
+                },
+                "script_chunk": "That\u2019s your news fix, catch y'all next time when robots take over Tinder profiles!",
+                "type": "generic"
+            }
+        ]
+    }
+}
