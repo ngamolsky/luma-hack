@@ -1,16 +1,17 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# ruff: noqa
 import argparse
 import asyncio
 import os
 import shutil
 import urllib.request
 
-from dotenv import load_dotenv
-
 from lumagen.state_manager import StateManager
 
 from .workflow_manager import WorkflowManager
-
-load_dotenv()
 
 
 PROJECT_ID = "wordpress-drama"
@@ -48,7 +49,9 @@ def main():
     source_material = load_source(args.source)
     duration = args.duration
 
-    workflow = WorkflowManager(PROJECT_ID, source_material, duration)
+    workflow = WorkflowManager(
+        PROJECT_ID, source_material=source_material, duration=duration
+    )
 
     asyncio.run(workflow.run())
 
@@ -61,6 +64,16 @@ def clear_state():
 
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
+
+
+def process_scene_by_id():
+    parser = argparse.ArgumentParser(description="Run the Lumagen workflow")
+    parser.add_argument("--scene_id", type=str, help="ID of the scene to process")
+    args = parser.parse_args()
+
+    scene_id = args.scene_id
+    workflow = WorkflowManager(PROJECT_ID)
+    asyncio.run(workflow.generate_video_from_scene_id(scene_id))
 
 
 if __name__ == "__main__":

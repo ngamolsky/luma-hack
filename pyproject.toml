@@ -5,20 +5,31 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "boto3>=1.35.33",
     "cartesia>=1.0.13",
+    "fal-client>=0.4.1",
+    "lumaai>=1.0.2",
+    "moviepy>=1.0.3",
     "numpy>=2.1.1",
     "openai>=1.51.0",
+    "pillow>=10.4.0",
     "pyairtable>=2.3.3",
     "python-dotenv>=1.0.1",
     "rich>=13.9.1",
     "soundfile>=0.12.1",
+    "tenacity>=9.0.0",
+    "tiktoken>=0.8.0",
+    "tweet-capture>=0.2.5",
 ]
 
 
 [project.scripts]
 main = "lumagen.main:main"
 clear = "lumagen.main:clear_state"
+run_scene = "lumagen.main:process_scene_by_id"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+

@@ -1,1 +1,1 @@
-Will need to brew install portaudio
+brew install imagemagick

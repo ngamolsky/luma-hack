@@ -3,10 +3,10 @@ from typing import List
 
 from pyairtable import Api
 
-from lumagen.storyboard_generation.prompt import MemeScene
+from lumagen.storyboard_generation.prompt import MemeContent
 
 
-def get_memes() -> List[MemeScene]:
+def get_memes() -> List[MemeContent]:
     airtable_api = Api(os.environ["AIRTABLE_API_KEY"])
     table = airtable_api.table("appi0R6F1ckhy8JpZ", "table1")
     records = table.all()
@@ -23,6 +23,6 @@ def get_memes() -> List[MemeScene]:
         if not image_url:
             continue
 
-        memes.append(MemeScene(name=name, description=notes, image_url=image_url))
+        memes.append(MemeContent(name=name, description=notes, image_url=image_url))
 
     return memes
