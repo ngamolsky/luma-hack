@@ -1,7 +1,9 @@
-import asyncio
 import logging
+import queue
+import threading
 from contextlib import asynccontextmanager
 from contextvars import ContextVar
+from queue import Queue
 from time import time
 from typing import Dict, List, Optional
 
@@ -79,35 +81,36 @@ class WorkflowLogger:
             console=self.console,
             refresh_per_second=4,
         )
-        self.update_task = None
-        self.progress = Progress(
-            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-            BarColumn(complete_style="magenta", finished_style="bold magenta"),
-            TextColumn("{task.completed}/{task.total}"),
-            console=self.console,
-            expand=True,
-        )
-        self.progress_tasks = {}
-        del self.progress
+        self.update_queue = Queue()
+        self.update_thread = None
         self.task_log_levels: Dict[str, int] = {}
         self.default_log_level = logging.INFO
+        self._stop_event = threading.Event()
 
     def start(self):
         self.live.start()
-        self.update_task = asyncio.create_task(self._update_tree())
+        self.update_thread = threading.Thread(target=self._update_display)
+        self.update_thread.start()
 
     def stop(self):
-        if self.update_task:
-            self.update_task.cancel()
+        self._stop_event.set()
+        if self.update_thread:
+            self.update_thread.join()
         self.root_task.complete()
         # Force a final update before stopping
         self.live.update(self._create_panel())
         self.live.stop()
 
-    async def _update_tree(self):
-        while True:
-            self.live.update(self._create_panel())
-            await asyncio.sleep(0.25)
+    def _update_display(self):
+        while not self._stop_event.is_set():
+            try:
+                # Wait for up to 0.1 seconds for a new update
+                update_func = self.update_queue.get(timeout=0.1)
+                update_func()
+                self.live.update(self._create_panel())
+            except queue.Empty:
+                # If no update received, just refresh the display
+                self.live.update(self._create_panel())
 
     def _create_panel(self):
         tree = self._build_tree(self.root_task)
@@ -189,8 +192,8 @@ class WorkflowLogger:
         finally:
             new_task.complete()
             self._current_task.reset(token)
-            # Force an update after task completion
-            self.live.update(self._create_panel())
+            # Queue an update after task completion
+            self.update_queue.put(lambda: None)
 
     def log(self, message: str, level: int = logging.INFO):
         current_task = self._current_task.get()
@@ -201,10 +204,13 @@ class WorkflowLogger:
         if level >= task_log_level:
             log_message = self._format_log(message, level)
 
-            if current_task:
-                current_task.add_log(log_message)
-            else:
-                self.root_task.add_log(log_message)
+            def _add_log():
+                if current_task:
+                    current_task.add_log(log_message)
+                else:
+                    self.root_task.add_log(log_message)
+
+            self.update_queue.put(_add_log)
 
     def error(self, message: str):
         self.log(message, logging.ERROR)
@@ -234,19 +240,27 @@ class WorkflowLogger:
     def update_progress(self, increment: int = 1):
         current_task = self._current_task.get()
         if current_task and current_task.progress is not None:
-            current_task.progress.update(
-                current_task.progress_task_id, advance=increment
-            )
-            current_task.progress_completed += increment
-            if current_task.progress_total is not None:
-                current_task.progress_completed = min(
-                    current_task.progress_completed, current_task.progress_total
-                )
-            current_task.update_progress(current_task.progress_completed)
-            if current_task.progress_completed == current_task.progress_total:
-                current_task.progress.update(
-                    current_task.progress_task_id,
-                    completed=current_task.progress_total,
-                )
+
+            def _update_progress():
+                if current_task.progress:
+                    current_task.progress.update(
+                        current_task.progress_task_id, advance=increment
+                    )
+                current_task.progress_completed += increment
+                if current_task.progress_total is not None:
+                    current_task.progress_completed = min(
+                        current_task.progress_completed, current_task.progress_total
+                    )
+                current_task.update_progress(current_task.progress_completed)
+                if (
+                    current_task.progress
+                    and current_task.progress_completed == current_task.progress_total
+                ):
+                    current_task.progress.update(
+                        current_task.progress_task_id,
+                        completed=current_task.progress_total,
+                    )
+
+            self.update_queue.put(_update_progress)
         else:
             raise ValueError("No active task with progress to update")

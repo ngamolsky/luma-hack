@@ -127,11 +127,11 @@ class SceneProcessor:
                     )
                     self.logger.debug(f"Generated video for {scene.source_scene.type}")
 
-                    downloaded_video = download_video_from_url(
+                    downloaded_video = await download_video_from_url(
                         generated_video_url,
                         os.path.join(scene_temp_dir, "generated_video.mp4"),
                     )
-                    final_video_path = clip_video(
+                    final_video_path = await clip_video(
                         downloaded_video,
                         scene.duration,
                         os.path.join(scene_temp_dir, "scene_clip.mp4"),
@@ -139,7 +139,7 @@ class SceneProcessor:
                     self.logger.debug(f"Clipped video for {scene.source_scene.type}")
 
                 elif scene.source_scene.type == "twitter":
-                    final_video_path = create_static_video(
+                    final_video_path = await create_static_video(
                         scene.image_path,
                         scene.duration,
                         os.path.join(scene_temp_dir, "scene_clip.mp4"),
@@ -230,7 +230,6 @@ class SceneProcessor:
                 raise TweetNotFoundError(
                     tweet_url, "Tweet not found, check the url and retry."
                 )
-            self.logger.error(f"Error generating tweet image: {e}")
             raise TwitterSceneError(tweet_url, e)
 
     async def generate_generic_image(

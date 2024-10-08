@@ -1,5 +1,7 @@
+import asyncio
 import tempfile
-from typing import List, Optional, Union
+from concurrent.futures import ThreadPoolExecutor
+from typing import List, Optional
 
 import requests
 from moviepy.editor import (
@@ -16,8 +18,11 @@ from lumagen.utils.logger import WorkflowLogger
 
 logger = WorkflowLogger()
 
+# Create a thread pool for CPU-bound tasks
+video_thread_pool = ThreadPoolExecutor(max_workers=4)
 
-def download_video_from_url(url: str, output_path: Optional[str] = None) -> str:
+
+async def download_video_from_url(url: str, output_path: Optional[str] = None) -> str:
     """
     Download a video from a given URL.
 
@@ -43,7 +48,9 @@ def download_video_from_url(url: str, output_path: Optional[str] = None) -> str:
     return output_path
 
 
-def create_static_video(image_path: str, duration: float, output_path: str) -> str:
+async def create_static_video(
+    image_path: str, duration: float, output_path: str
+) -> str:
     """
     Create a static video from an image.
 
@@ -55,14 +62,24 @@ def create_static_video(image_path: str, duration: float, output_path: str) -> s
     Returns:
         str: Path to the created video file.
     """
-    clip = ImageClip(image_path).set_duration(duration)
-    clip.write_videofile(output_path, fps=24, logger=None)
-    return output_path
+
+    def _create_static_video():
+        image_clip = ImageClip(image_path).set_duration(duration)
+        image_clip.write_videofile(
+            output_path,
+            fps=24,
+            codec="libx264",
+            audio_codec="aac",
+            logger=None,
+        )
+        return output_path
+
+    return await asyncio.get_event_loop().run_in_executor(
+        video_thread_pool, _create_static_video
+    )
 
 
-def clip_video(
-    video_path: Union[str, VideoFileClip], duration: float, output_path: str
-) -> str:
+async def clip_video(input_path: str, duration: float, output_path: str) -> str:
     """
     Clip a video to the specified duration.
 
@@ -74,18 +91,18 @@ def clip_video(
     Returns:
         str: Path to the clipped video file.
     """
-    if isinstance(video_path, str):
-        video = VideoFileClip(video_path)
-    else:
-        video = video_path
 
-    clipped_video = video.subclip(0, duration)
-    clipped_video.write_videofile(output_path, logger=None)
+    def _clip_video():
+        with VideoFileClip(input_path) as video:
+            clipped = video.subclip(0, duration)
+            clipped.write_videofile(
+                output_path, codec="libx264", audio_codec="aac", logger=None
+            )
+        return output_path
 
-    if isinstance(video_path, str):
-        video.close()
-
-    return output_path
+    return await asyncio.get_event_loop().run_in_executor(
+        video_thread_pool, _clip_video
+    )
 
 
 def create_final_video(
@@ -137,14 +154,17 @@ def create_final_video(
             video_clips.append(captioned_clip)
 
     # Concatenate video clips (now including captions)
-    logger.info("Concatenating video clips with captions")
-    final_video = concatenate_videoclips(video_clips, method="compose")
+    logger.debug("Concatenating video clips with captions")
+    final_video = concatenate_videoclips(
+        video_clips,
+        method="compose",
+    )
 
     # Add audio
     final_video = final_video.set_audio(audio)
 
     # Write final video
-    logger.info(f"Writing final video to {output_path}")
+    logger.debug(f"Writing final video to {output_path}")
     final_video.write_videofile(
         output_path, codec="libx264", audio_codec="aac", logger=None
     )
@@ -155,5 +175,5 @@ def create_final_video(
         clip.close()
     final_video.close()
 
-    logger.info("Final video creation completed")
+    logger.debug("Final video creation completed")
     return output_path

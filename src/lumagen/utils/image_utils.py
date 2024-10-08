@@ -1,4 +1,6 @@
+import asyncio
 import io
+from concurrent.futures import ThreadPoolExecutor
 from enum import Enum
 
 import httpx
@@ -202,3 +204,17 @@ def open_image_from_file(filepath: str) -> Image.Image:
         Image.Image: The opened image.
     """
     return Image.open(filepath)
+
+
+# Create a thread pool for CPU-bound image processing tasks
+image_thread_pool = ThreadPoolExecutor(max_workers=4)
+
+
+async def resize_and_pad_image_async(
+    image: Image.Image,
+    aspect_ratio: AspectRatio,
+    target_resolution: tuple = (1024, 1024),
+) -> Image.Image:
+    return await asyncio.get_event_loop().run_in_executor(
+        image_thread_pool, resize_and_pad_image, image, aspect_ratio, target_resolution
+    )
