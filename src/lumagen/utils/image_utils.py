@@ -4,9 +4,11 @@ from concurrent.futures import ThreadPoolExecutor
 from enum import Enum
 
 import httpx
-import numpy as np
-from PIL import Image
+from PIL import Image, ImageStat
 from tenacity import retry, stop_after_attempt, wait_exponential
+
+# Create a thread pool for CPU-bound image processing tasks
+image_thread_pool = ThreadPoolExecutor(max_workers=4)
 
 
 class AspectRatio(Enum):
@@ -17,135 +19,59 @@ class AspectRatio(Enum):
     ULTRAWIDE = "32:9"
 
 
-def place_image_on_backdrop(
-    image: Image.Image,
-    aspect_ratio: AspectRatio,
-    padding: float = 0.1,
-    target_resolution: tuple = (1024, 1024),
-) -> Image.Image:
-    """
-    Place an image on a backdrop with the given aspect ratio and scale to the target resolution.
-
-    Args:
-        image (Image.Image): The input image.
-        aspect_ratio (AspectRatio): The desired aspect ratio from the AspectRatio enum.
-        padding (float): The padding around the image as a fraction of the shorter dimension. Default is 0.1 (10%).
-        target_resolution (tuple): The target resolution (width, height) for the final image. Default is (1024, 1024).
-
-    Returns:
-        Image.Image: The image placed on the backdrop and scaled to the target resolution.
-    """
-    # Parse aspect ratio
-    width_ratio, height_ratio = map(int, aspect_ratio.value.split(":"))
-
-    # Calculate target dimensions
-    target_ratio = width_ratio / height_ratio
-    current_ratio = image.width / image.height
-
-    if current_ratio > target_ratio:
-        new_width = image.width
-        new_height = int(new_width / target_ratio)
-    else:
-        new_height = image.height
-        new_width = int(new_height * target_ratio)
-
-    # Calculate padding
-    pad = int(min(new_width, new_height) * padding)
-    new_width += 2 * pad
-    new_height += 2 * pad
-
-    # Determine background color
-    img_array = np.array(image)
-    mean_color = np.mean(img_array)
-    background_color = (0, 0, 0) if mean_color > 128 else (255, 255, 255)
-
-    # Create new image with background
-    new_image = Image.new("RGB", (new_width, new_height), background_color)
-
-    # Calculate position to paste original image
-    paste_x = (new_width - image.width) // 2
-    paste_y = (new_height - image.height) // 2
-
-    # Paste original image onto new image
-    new_image.paste(image, (paste_x, paste_y))
-
-    # Scale the image to the target resolution, maintaining aspect ratio
-    scale_factor = max(target_resolution) / max(new_image.size)
-    new_size = (
-        int(new_image.width * scale_factor),
-        int(new_image.height * scale_factor),
-    )
-    return new_image.resize(new_size, Image.Resampling.LANCZOS)
-
-
-def resize_image(image: Image.Image, max_size: int) -> Image.Image:
-    """
-    Resize an image while maintaining its aspect ratio.
-
-    Args:
-        image (Image.Image): The input image.
-        max_size (int): The maximum size of the longer dimension.
-
-    Returns:
-        Image.Image: The resized image.
-    """
-    ratio = max_size / max(image.size)
-    new_size = (int(image.width * ratio), int(image.height * ratio))
-    return image.resize(new_size, Image.Resampling.LANCZOS)
+TARGET_RESOLUTION = (720, 1280)  # HD resolution
 
 
 def resize_and_pad_image(
     image: Image.Image,
     aspect_ratio: AspectRatio,
-    target_resolution: tuple = (1024, 1024),
+    padding_percent: float = 0.05,  # 5% padding by default
 ) -> Image.Image:
     """
-    Process an image by resizing it, placing it on a backdrop, and scaling to the target resolution.
+    Process an image by resizing it to fit within the target resolution while maintaining
+    its original aspect ratio, then adding padding to reach the target aspect ratio.
 
     Args:
         image (Image.Image): The input image.
-        aspect_ratio (AspectRatio): The desired aspect ratio from the AspectRatio enum.
-        target_resolution (tuple): The target resolution (width, height) for the final image. Default is (1024, 1024).
+        aspect_ratio (AspectRatio): The desired aspect ratio for the final image.
+        padding_percent (float): The minimum percentage of padding to add around the image. Default is 0.05 (5%).
 
     Returns:
-        Image.Image: The processed image with the specified aspect ratio and target resolution.
+        Image.Image: The processed image with HD resolution and the specified aspect ratio and minimum padding.
     """
-    # Parse target aspect ratio
-    width_ratio, height_ratio = map(int, aspect_ratio.value.split(":"))
-    target_aspect = width_ratio / height_ratio
+    # Calculate target resolution based on aspect ratio
+    ratio = [int(x) for x in aspect_ratio.value.split(":")]
+    target_resolution = (
+        TARGET_RESOLUTION[0],
+        int(TARGET_RESOLUTION[0] * ratio[1] / ratio[0]),
+    )
 
-    # Calculate the dimensions that fit the target aspect ratio
-    if target_aspect > 1:  # Landscape or wider
-        new_width = target_resolution[0]
-        new_height = int(new_width / target_aspect)
-    else:  # Portrait or square
-        new_height = target_resolution[1]
-        new_width = int(new_height * target_aspect)
+    # Calculate the maximum size the image can be while maintaining its aspect ratio
+    img_ratio = image.width / image.height
+    if img_ratio > target_resolution[0] / target_resolution[1]:
+        new_width = int(target_resolution[0] * (1 - 2 * padding_percent))
+        new_height = int(new_width / img_ratio)
+    else:
+        new_height = int(target_resolution[1] * (1 - 2 * padding_percent))
+        new_width = int(new_height * img_ratio)
 
-    # Create a new image with the target aspect ratio
-    new_image = Image.new(
-        "RGB", (new_width, new_height), (255, 255, 255)
-    )  # White background
+    # Resize the input image
+    resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
-    # Resize the input image to fit within the new dimensions while maintaining its aspect ratio
-    resized_image = resize_image(image, min(new_width, new_height))
+    # Determine the best contrasting background color
+    bg_color = get_contrasting_color(image)
+
+    # Create a new image with the target resolution
+    new_image = Image.new("RGB", target_resolution, bg_color)
 
     # Calculate position to paste the resized image
-    paste_x = (new_width - resized_image.width) // 2
-    paste_y = (new_height - resized_image.height) // 2
+    paste_x = (target_resolution[0] - new_width) // 2
+    paste_y = (target_resolution[1] - new_height) // 2
 
     # Paste the resized image onto the new image
     new_image.paste(resized_image, (paste_x, paste_y))
 
-    # Scale the image to the target resolution, maintaining aspect ratio
-    scale_factor = max(target_resolution) / max(new_image.size)
-    new_size = (
-        int(new_image.width * scale_factor),
-        int(new_image.height * scale_factor),
-    )
-    final_image = new_image.resize(new_size, Image.Resampling.LANCZOS)
-
-    return final_image
+    return new_image
 
 
 @retry(
@@ -181,21 +107,25 @@ async def download_image_from_url(url: str) -> Image.Image:
         return Image.open(io.BytesIO(image_data))
 
 
-def save_image_to_file(image: Image.Image, filepath: str) -> str:
+async def save_image_to_file(image: Image.Image, filepath: str) -> str:
     """
-    Save an image to a file.
+    Save an image to a file asynchronously.
 
     Args:
         image (Image.Image): The image to save.
         filepath (str): The path to save the image to.
+
+    Returns:
+        str: The filepath where the image was saved.
     """
-    image.save(filepath)
-    return filepath
+    return await asyncio.get_event_loop().run_in_executor(
+        image_thread_pool, lambda: image.save(filepath) or filepath
+    )
 
 
-def open_image_from_file(filepath: str) -> Image.Image:
+async def open_image_from_file(filepath: str) -> Image.Image:
     """
-    Open an image from a file.
+    Open an image from a file asynchronously.
 
     Args:
         filepath (str): The path to the image file.
@@ -203,18 +133,35 @@ def open_image_from_file(filepath: str) -> Image.Image:
     Returns:
         Image.Image: The opened image.
     """
-    return Image.open(filepath)
-
-
-# Create a thread pool for CPU-bound image processing tasks
-image_thread_pool = ThreadPoolExecutor(max_workers=4)
+    return await asyncio.get_event_loop().run_in_executor(
+        image_thread_pool, Image.open, filepath
+    )
 
 
 async def resize_and_pad_image_async(
     image: Image.Image,
     aspect_ratio: AspectRatio,
-    target_resolution: tuple = (1024, 1024),
+    padding_percent: float = 0.05,
 ) -> Image.Image:
     return await asyncio.get_event_loop().run_in_executor(
-        image_thread_pool, resize_and_pad_image, image, aspect_ratio, target_resolution
+        image_thread_pool,
+        resize_and_pad_image,
+        image,
+        aspect_ratio,
+        padding_percent,
     )
+
+
+def get_contrasting_color(image: Image.Image) -> tuple:
+    """
+    Determine the best contrasting color (black or white) for the image.
+
+    Args:
+        image (Image.Image): The input image.
+
+    Returns:
+        tuple: RGB values for the contrasting color (black or white).
+    """
+    stat = ImageStat.Stat(image)
+    avg_brightness = sum(stat.mean[:3]) / 3
+    return (0, 0, 0) if avg_brightness > 127 else (255, 255, 255)

@@ -1,0 +1,364 @@
+{
+    "audio": {
+        "duration": 37.30331065759637,
+        "path": "src/data/output/dhh/temp/full_audio.wav"
+    },
+    "final_video_path": "src/data/output/dhh/final_video.mp4",
+    "script": "Hey tech world! Grab your popcorn. It's DHH versus Vercel in the ring. Meet DHH, the minimalist coding monk, who loves Hotwire and hates complexity\u2014like Vercel's Next.js complexities. He\u2019s got zero chill for cloud price hikes he thinks grow fatter company wallets faster than your code compiles!\n\nVercel? Flexing their anti-DDoS superpowers, they\u2019re selling cloud comforts for developers caught in an evolutionary tech trend war. But DHH says: \u201cInnovate, don\u2019t alienate!\u201d With a side of skepticism about exploitative quant models.\n\nThis isn\u2019t a cage match but DHH\u2019s relentless roast of where tech\u2019s headed versus Vercel\u2019s orchestration of the future. Who's your money on?",
+    "storyboard": {
+        "scenes": [
+            {
+                "audio_path": null,
+                "duration": 2.222222222222222,
+                "final_video_path": "src/data/output/dhh/temp/scene_9f2a2d05-03d6-4b04-974a-28c0010875a2/scene_clip.mp4",
+                "id": "9f2a2d05-03d6-4b04-974a-28c0010875a2",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-6203053258826470689.png",
+                "image_path": "src/data/output/dhh/temp/scene_9f2a2d05-03d6-4b04-974a-28c0010875a2/generic_-6203053258826470689.png",
+                "scene_index": 0,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A lively scene at a tech conference, with enthusiastic developers and large screens showing tech presentations."
+                    },
+                    "meme": null,
+                    "script_chunk": "Hey tech world! Grab your popcorn.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.5925925925925926,
+                "final_video_path": "src/data/output/dhh/temp/scene_eebed8fb-02c2-4217-ae3b-98fb15807e85/scene_clip.mp4",
+                "id": "eebed8fb-02c2-4217-ae3b-98fb15807e85",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_-6957326361913419697.png",
+                "image_path": "src/data/output/dhh/temp/scene_eebed8fb-02c2-4217-ae3b-98fb15807e85/meme_-6957326361913419697.png",
+                "scene_index": 1,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Spider-Man Pointing at Spider-Man refers to an image from the 60's Spider-Man cartoon episode in which two people in Spider-Man costumes are pointing at each other.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/ktk8I0znQVwBEjmYo1s5GA/HEpGQa5twJnndqxjBbes9fCwdL_39YhLEtypXuGTLfarcew4zPAIkj2httN6zwxshj_Ya1et7NXzTQAMfggdt-jaOKZ2cg-_wS1YagURBitWDrqgQsOsECQsFVg00dr9IsyX6p46rQPpaOMSONWi8lRPSwzzm-j7D0zN4Dpe0Ug/GbZdZJKTk50kWYAJNdi0NUO2SKLp6hnJgWVYRokbCEU",
+                        "name": "Spider-Man Pointing at Spider-Man"
+                    },
+                    "script_chunk": "It's DHH versus Vercel in the ring.",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.222222222222222,
+                "final_video_path": "src/data/output/dhh/temp/scene_e69176bc-9b7a-450f-a6d1-0cc927b0b589/scene_clip.mp4",
+                "id": "e69176bc-9b7a-450f-a6d1-0cc927b0b589",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-3103566553339252522.png",
+                "image_path": "src/data/output/dhh/temp/scene_e69176bc-9b7a-450f-a6d1-0cc927b0b589/generic_-3103566553339252522.png",
+                "scene_index": 2,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "An illustration of a serene monk meditating with lines of code floating around him."
+                    },
+                    "meme": null,
+                    "script_chunk": "Meet DHH, the minimalist coding monk.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.222222222222222,
+                "final_video_path": "src/data/output/dhh/temp/scene_5c9f524c-7959-4710-ae4b-007e04581952/scene_video.mp4",
+                "id": "5c9f524c-7959-4710-ae4b-007e04581952",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_2516951478402831074.png",
+                "image_path": "src/data/output/dhh/temp/scene_5c9f524c-7959-4710-ae4b-007e04581952/tweet_2516951478402831074.png",
+                "scene_index": 3,
+                "source_scene": {
+                    "generic": null,
+                    "meme": null,
+                    "script_chunk": "who loves Hotwire and hates complexity\u2014",
+                    "twitter": {
+                        "tweet_url": "https://x.com/thekitze/status/1839386310295036384?s=46"
+                    },
+                    "type": "twitter"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 1.4814814814814814,
+                "final_video_path": "src/data/output/dhh/temp/scene_2a016ceb-5634-43bb-bde1-80a5b24dae87/scene_clip.mp4",
+                "id": "2a016ceb-5634-43bb-bde1-80a5b24dae87",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-2345717374192777052.png",
+                "image_path": "src/data/output/dhh/temp/scene_2a016ceb-5634-43bb-bde1-80a5b24dae87/generic_-2345717374192777052.png",
+                "scene_index": 4,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A complex web of cables and computer servers with confused technicians."
+                    },
+                    "meme": null,
+                    "script_chunk": "like Vercel's Next.js complexities.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.962962962962963,
+                "final_video_path": "src/data/output/dhh/temp/scene_2b98f2c7-ce14-4423-9398-1459ffaa3fa5/scene_clip.mp4",
+                "id": "2b98f2c7-ce14-4423-9398-1459ffaa3fa5",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_3988065821743034220.png",
+                "image_path": "src/data/output/dhh/temp/scene_2b98f2c7-ce14-4423-9398-1459ffaa3fa5/meme_3988065821743034220.png",
+                "scene_index": 5,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Confused Travolta is an animated GIF series featuring a cutout of actor John Travolta in the 1994 black comedy crime film Pulp Fiction edited into other base images of various contexts.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/Byqa4PGFfg3fcZHf8oB2RA/kaszkAaZnDAPmCNpwFzpFuF9neufjyJYxhOFviAsaqlieZA9o0-TuaowpDKrpbfljtWODbQS3S5UB6XsHDHNFDCIpNBtsT6ixrStqaYj0h8LEYuvgGz6_56UKR0hF7Gn5A-RZ2C5vP_XglX1b6PRMTU5GL-NeKSYx8ted11PN1c/wO6AaP2QPTg9hs8zJyKWgGPPbCbXH1Mqbn2kMFGb8Uo",
+                        "name": "Confused Travolta"
+                    },
+                    "script_chunk": "He's got zero chill for cloud price hikes",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.5925925925925926,
+                "final_video_path": "src/data/output/dhh/temp/scene_44b3a33c-db12-4e8b-9f01-2d7ff704f0e2/scene_clip.mp4",
+                "id": "44b3a33c-db12-4e8b-9f01-2d7ff704f0e2",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-3374886952032754770.png",
+                "image_path": "src/data/output/dhh/temp/scene_44b3a33c-db12-4e8b-9f01-2d7ff704f0e2/generic_-3374886952032754770.png",
+                "scene_index": 6,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A humorous cartoon depicting a tiny code snippet inflating a large corporate wallet."
+                    },
+                    "meme": null,
+                    "script_chunk": "he thinks grow fatter company wallets faster",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 1.4814814814814814,
+                "final_video_path": "src/data/output/dhh/temp/scene_8361e81b-b325-4843-a3ea-6741156f823c/scene_clip.mp4",
+                "id": "8361e81b-b325-4843-a3ea-6741156f823c",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_6495780674774314183.png",
+                "image_path": "src/data/output/dhh/temp/scene_8361e81b-b325-4843-a3ea-6741156f823c/generic_6495780674774314183.png",
+                "scene_index": 7,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A speedometer-like graphic with a spinning code compile times needle."
+                    },
+                    "meme": null,
+                    "script_chunk": "than your code compiles!",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 1.8518518518518516,
+                "final_video_path": "src/data/output/dhh/temp/scene_2190738f-9c50-4616-b5d1-c3e2ab15d5f8/scene_clip.mp4",
+                "id": "2190738f-9c50-4616-b5d1-c3e2ab15d5f8",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_4715142776088146347.png",
+                "image_path": "src/data/output/dhh/temp/scene_2190738f-9c50-4616-b5d1-c3e2ab15d5f8/meme_4715142776088146347.png",
+                "scene_index": 8,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Confused Travolta is an animated GIF series featuring a cutout of actor John Travolta in the 1994 black comedy crime film Pulp Fiction edited into other base images of various contexts.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/Byqa4PGFfg3fcZHf8oB2RA/kaszkAaZnDAPmCNpwFzpFuF9neufjyJYxhOFviAsaqlieZA9o0-TuaowpDKrpbfljtWODbQS3S5UB6XsHDHNFDCIpNBtsT6ixrStqaYj0h8LEYuvgGz6_56UKR0hF7Gn5A-RZ2C5vP_XglX1b6PRMTU5GL-NeKSYx8ted11PN1c/wO6AaP2QPTg9hs8zJyKWgGPPbCbXH1Mqbn2kMFGb8Uo",
+                        "name": "Confused Travolta"
+                    },
+                    "script_chunk": "Vercel? Flexing their anti-DDoS superpowers,",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.222222222222222,
+                "final_video_path": "src/data/output/dhh/temp/scene_d219e6ee-2b74-41b9-9f31-da647a44d082/scene_clip.mp4",
+                "id": "d219e6ee-2b74-41b9-9f31-da647a44d082",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_3148691879533748554.png",
+                "image_path": "src/data/output/dhh/temp/scene_d219e6ee-2b74-41b9-9f31-da647a44d082/generic_3148691879533748554.png",
+                "scene_index": 9,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A plush cloud with a 'For Sale' sign surrounded by developers wearing comfortable fleece jackets."
+                    },
+                    "meme": null,
+                    "script_chunk": "they\u2019re selling cloud comforts for developers",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.5925925925925926,
+                "final_video_path": "src/data/output/dhh/temp/scene_6ca112d2-6038-4faa-9fa2-3c43b5ca4d4f/scene_clip.mp4",
+                "id": "6ca112d2-6038-4faa-9fa2-3c43b5ca4d4f",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_6801016479346425167.png",
+                "image_path": "src/data/output/dhh/temp/scene_6ca112d2-6038-4faa-9fa2-3c43b5ca4d4f/generic_6801016479346425167.png",
+                "scene_index": 10,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "Dramatic scene of a battlefield, with tech gadgets engaging in an epic conflict."
+                    },
+                    "meme": null,
+                    "script_chunk": "caught in an evolutionary tech trend war.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.222222222222222,
+                "final_video_path": "src/data/output/dhh/temp/scene_43b7118b-2909-4440-b0aa-182e1f842fe0/scene_video.mp4",
+                "id": "43b7118b-2909-4440-b0aa-182e1f842fe0",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_-2595389462435330235.png",
+                "image_path": "src/data/output/dhh/temp/scene_43b7118b-2909-4440-b0aa-182e1f842fe0/tweet_-2595389462435330235.png",
+                "scene_index": 11,
+                "source_scene": {
+                    "generic": null,
+                    "meme": null,
+                    "script_chunk": "But DHH says: 'Innovate, don't alienate!'",
+                    "twitter": {
+                        "tweet_url": "https://x.com/emzraline/status/1839628407740518524"
+                    },
+                    "type": "twitter"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.5925925925925926,
+                "final_video_path": "src/data/output/dhh/temp/scene_0e97c55d-6c73-4f28-949c-66038ee2e357/scene_clip.mp4",
+                "id": "0e97c55d-6c73-4f28-949c-66038ee2e357",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_-8323259346521601544.png",
+                "image_path": "src/data/output/dhh/temp/scene_0e97c55d-6c73-4f28-949c-66038ee2e357/meme_-8323259346521601544.png",
+                "scene_index": 12,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Confused Nick Young, also known as Swaggy P, refers to a reaction image featuring NBA basketball player Nick Young with question marks surrounding his head, which was popularized on Black Twitter to express confusion online, most notably during the Drake and Meek Mill Feud.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/o3bJ-irX2sM43J4LdOOOiA/E-NdlmiiUpvWXqaGt4i2z8g3zfZwu7rFSF-9JyMaZXf18kFEC3ZwDrTj2Z4zn5SeF-gp80US2N5FNkgMACFF-wCpP8YVZLbPpLnS1cApFCj3n2gE0ElASfVtHJK0dbI7wE0Up2CNwi78-a6ymUqLzDQoomgXiKSns4JuOfRnCOB3cDY_7ZwNAWpS2HQCgT_Kf6nZP3x9DlmyNdVW-8_MvA/0BSQfQelROr779IXVxlSZs1q4gDBmKcLcKwBSEsa9ws",
+                        "name": "Confused Nick Young"
+                    },
+                    "script_chunk": "With a side of skepticism about exploitative",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 0.7407407407407407,
+                "final_video_path": "src/data/output/dhh/temp/scene_6075d368-3436-465a-8406-2c42955a1933/scene_clip.mp4",
+                "id": "6075d368-3436-465a-8406-2c42955a1933",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_614199526228905619.png",
+                "image_path": "src/data/output/dhh/temp/scene_6075d368-3436-465a-8406-2c42955a1933/generic_614199526228905619.png",
+                "scene_index": 13,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "An overly complicated mathematical formula written on a blackboard, scientists scratching their heads."
+                    },
+                    "meme": null,
+                    "script_chunk": "quant models.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.962962962962963,
+                "final_video_path": "src/data/output/dhh/temp/scene_fce4a404-ff34-4ff2-ad44-cf76b39d14e8/scene_clip.mp4",
+                "id": "fce4a404-ff34-4ff2-ad44-cf76b39d14e8",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-929840244495108663.png",
+                "image_path": "src/data/output/dhh/temp/scene_fce4a404-ff34-4ff2-ad44-cf76b39d14e8/generic_-929840244495108663.png",
+                "scene_index": 14,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A bustling arena with DHH energetically debating his opponent on a brightly lit stage."
+                    },
+                    "meme": null,
+                    "script_chunk": "This isn\u2019t a cage match but DHH\u2019s relentless",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 1.8518518518518516,
+                "final_video_path": "src/data/output/dhh/temp/scene_8f24f50a-f753-4dea-9e17-41501ddc78a6/scene_clip.mp4",
+                "id": "8f24f50a-f753-4dea-9e17-41501ddc78a6",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_-2484678726415026346.png",
+                "image_path": "src/data/output/dhh/temp/scene_8f24f50a-f753-4dea-9e17-41501ddc78a6/meme_-2484678726415026346.png",
+                "scene_index": 15,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Hawk Tuah Recently Went Viral for Her Rant refers to a series of parody memes that spread fake rants from internet personality Haliey Welch, better known as the Hawk Tuah Girl, which appear to stem from her podcast Talk Tuah that was garnering attention around the same timeframe. Started by a viral X / Twitter post in late September 2024, the format is similar to \"X Reveals\" memes, such as Jenna Ortega Reveals and Sydney Sweeney Reveals, and has been used to represent Welch as an expert on a variety of topics, or to express controversial opinions.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/zYvwfv3mQ-GgL5Ebe-M3ow/RKJHBIX-jfBWoPbh9NpiU75vY9C95bQxm4e_mR8OfiA2-bao7iXRmjJT3wAp2T43PzOVcw_ME7P1QMxctEhxAnozcACzfxgnHru9moos8QlNKDnaugL0Q8gPcLJi9t5GX_PqyCrMBGmcf2Wiv-o4qegYEDMAdb2GGa4nwwHUvW6LYtePRLntKxFcCa3L39EH/CUGZBL3zdZLla2ko1mfaCkkTkeFduiNY9q0QmEGZd1w",
+                        "name": "Hawk Tuah"
+                    },
+                    "script_chunk": "roast of where tech\u2019s headed",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.222222222222222,
+                "final_video_path": "src/data/output/dhh/temp/scene_9f9a6f7f-3d34-47eb-92bd-50df5c8a6105/scene_video.mp4",
+                "id": "9f9a6f7f-3d34-47eb-92bd-50df5c8a6105",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_1585740270718321605.png",
+                "image_path": "src/data/output/dhh/temp/scene_9f9a6f7f-3d34-47eb-92bd-50df5c8a6105/tweet_1585740270718321605.png",
+                "scene_index": 16,
+                "source_scene": {
+                    "generic": null,
+                    "meme": null,
+                    "script_chunk": "versus Vercel\u2019s orchestration of the future.",
+                    "twitter": {
+                        "tweet_url": "https://x.com/DevrimVardar/status/1839358760860721189"
+                    },
+                    "type": "twitter"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 1.4814814814814814,
+                "final_video_path": "src/data/output/dhh/temp/scene_8718e4c2-bc31-4604-854a-6b029f8a364a/scene_clip.mp4",
+                "id": "8718e4c2-bc31-4604-854a-6b029f8a364a",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_1420170614712078431.png",
+                "image_path": "src/data/output/dhh/temp/scene_8718e4c2-bc31-4604-854a-6b029f8a364a/generic_1420170614712078431.png",
+                "scene_index": 17,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "An intense betting scene with tech enthusiasts making wagers on a giant screen displaying DHH and Vercel."
+                    },
+                    "meme": null,
+                    "script_chunk": "Who's your money on?",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            }
+        ]
+    }
+}

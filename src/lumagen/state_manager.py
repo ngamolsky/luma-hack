@@ -22,11 +22,17 @@ class SceneState(BaseModel):
     source_scene: Scene
     image_path: Optional[str] = None
     image_cloudflare_url: Optional[str] = None
+    audio_path: Optional[str] = None
+    video_path: Optional[str] = None
     final_video_path: Optional[str] = None
+    scene_index: Optional[int] = None
 
 
 class StoryboardState(BaseModel):
     scenes: list[SceneState]
+
+    def all_scenes_completed(self) -> bool:
+        return all(scene.final_video_path is not None for scene in self.scenes)
 
 
 class LumagenState(BaseModel):
@@ -85,6 +91,26 @@ class StateManager:
                 f"Error saving state for project {self.project_id}: {str(e)}",
                 logging.ERROR,
             )
+
+    def save_scene_state(self, scene: SceneState):
+        self.logger.debug(f"Saving processed scene with ID: {scene.id}")
+        state = self.load_state(skip_logs=True)
+        if not state.storyboard:
+            raise ValueError("Can't save scene without a storyboard.")
+
+        # Find the index of the existing scene
+        existing_scene_index = next(
+            (i for i, s in enumerate(state.storyboard.scenes) if s.id == scene.id), None
+        )
+
+        if existing_scene_index is not None:
+            # Replace the existing scene at the same index
+            state.storyboard.scenes[existing_scene_index] = scene
+        else:
+            # If the scene doesn't exist, append it to the end
+            state.storyboard.scenes.append(scene)
+
+        self.save_state(state, skip_logs=True)
 
     def load_state(
         self, skip_logs: bool = False, on_step: Optional[str] = None

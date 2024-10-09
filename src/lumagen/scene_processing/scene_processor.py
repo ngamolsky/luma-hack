@@ -2,6 +2,8 @@ import os
 import traceback
 
 from tenacity import (
+    RetryCallState,
+    RetryError,
     retry,
     retry_if_not_exception_type,
     stop_after_attempt,
@@ -9,8 +11,10 @@ from tenacity import (
 )
 from tweetcapture import TweetCapture
 
+from lumagen.audio_generation.audio_generator import AudioGenerator
 from lumagen.models.text_to_image.fal_t2i import FalTextToImageModel
 from lumagen.models.text_to_video.luma_t2v import LumaAITextToVideoModel
+from lumagen.models.tts.cartesia_tts import CartesiaTTSModel
 from lumagen.state_manager import SceneState, StateManager
 from lumagen.storyboard_generation.prompt import (
     GenericVideoContent,
@@ -24,6 +28,7 @@ from lumagen.utils.image_utils import (
     download_image_from_url,
     open_image_from_file,
     resize_and_pad_image,
+    resize_and_pad_image_async,
     save_image_to_file,
 )
 from lumagen.utils.logger import WorkflowLogger
@@ -34,19 +39,36 @@ from lumagen.utils.video_utils import (
 )
 
 
+def retry_callback(retry_state: RetryCallState):
+    logger = WorkflowLogger()
+    logger.increment_retry_count()
+
+    function_name = retry_state.fn.__name__ if retry_state.fn else "unknown"
+    exception = retry_state.outcome.exception() if retry_state.outcome else None
+
+    if isinstance(exception, RetryError) and exception.last_attempt.exception():
+        exception = exception.last_attempt.exception()
+
+    exception_name = exception.__class__.__name__ if exception else "unknown"
+    logger.debug(f"Retrying {function_name} after {exception_name}...")
+
+
 class SceneProcessorError(Exception):
     def __init__(self, scene_id: str, original_exception: Exception):
+        while isinstance(original_exception, RetryError):
+            print("Retry error", original_exception)
+            if original_exception.last_attempt.exception():
+                original_exception = original_exception.last_attempt.exception()  # type: ignore
+                break
+
         super().__init__(
             f"Error processing scene {scene_id}: {str(original_exception)}"
         )
         self.scene_id = scene_id
         self.original_exception = original_exception
-        self.stack_trace = traceback.format_exc()
 
     def __str__(self):
-        return (
-            f"{super().__str__()}\n\nOriginal exception stacktrace:\n{self.stack_trace}"
-        )
+        return f"{super().__str__()}\n\nOriginal exception stacktrace:\n{self.original_exception.__traceback__}"
 
 
 class TwitterSceneError(Exception):
@@ -58,109 +80,68 @@ class TwitterSceneError(Exception):
         self.original_exception = original_exception
         self.stack_trace = traceback.format_exc()
 
-    def __str__(self):
-        return (
-            f"{super().__str__()}\n\nOriginal exception stacktrace:\n{self.stack_trace}"
-        )
-
 
 class TweetNotFoundError(Exception):
     def __init__(self, tweet_url: str, message: str):
-        super().__init__(f"Tweet not found for URL {tweet_url}: {message}")
+        super().__init__(f"Tweet not found for URL {tweet_url}.")
         self.tweet_url = tweet_url
-        self.stack_trace = traceback.format_exc()
-
-    def __str__(self):
-        return f"{super().__str__()}\n\nStacktrace:\n{self.stack_trace}"
 
 
 class SceneProcessor:
-    def __init__(self, project_id: str, ttv_model: LumaAITextToVideoModel):
+    def __init__(
+        self,
+        project_id: str,
+        ttv_model: LumaAITextToVideoModel,
+        tts_model: CartesiaTTSModel,
+    ):
         self.logger = WorkflowLogger()
         self.ttv_model = ttv_model
+        self.tts_model = tts_model
         self.project_id = project_id
         self.state_manager = StateManager(project_id)
 
-        os.makedirs(self.state_manager.temp_dir, exist_ok=True)
         os.makedirs(self.state_manager.temp_dir, exist_ok=True)
 
         self.logger.debug(f"Initialized SceneProcessor for project {project_id}")
 
     async def process_scene(self, scene: SceneState) -> SceneState:
-        try:
-            # Use the persistent temporary directory with scene id
-            scene_temp_dir = os.path.join(
-                self.state_manager.temp_dir, f"scene_{scene.id}"
-            )
-            os.makedirs(scene_temp_dir, exist_ok=True)
+        async with self.logger.task(
+            f"[SCENE {scene.scene_index + 1 if scene.scene_index is not None else 1}] - {scene.source_scene.type} - {scene.id[:8]}..."
+        ):
+            self.logger.start_progress(total=3, stage="IMAGE")
+            try:
+                scene_temp_dir = os.path.join(
+                    self.state_manager.temp_dir, f"scene_{scene.id}"
+                )
+                os.makedirs(scene_temp_dir, exist_ok=True)
 
-            if not scene.image_path:
-                self.logger.debug(f"Generating image for {scene.source_scene.type}")
-                scene.image_path = await self.generate_image(
-                    scene.source_scene, scene_temp_dir
-                )
-                self.save_processed_scene(scene)
-                self.logger.debug(f"Generated image for {scene.source_scene.type}")
-            else:
-                self.logger.debug(f"Using existing image for {scene.source_scene.type}")
-
-            if not scene.image_cloudflare_url:
-                self.logger.debug(
-                    f"Uploading image to Cloudflare for {scene.image_path}"
-                )
-                scene.image_cloudflare_url = upload_to_cloudflare(scene.image_path)
-                self.save_processed_scene(scene)
-                self.logger.debug(
-                    f"Uploaded image to Cloudflare for {scene.source_scene.type}"
-                )
-            else:
-                self.logger.debug(
-                    f"Using existing image from Cloudflare for {scene.source_scene.type}"
-                )
-
-            if not scene.final_video_path:
-                self.logger.debug(f"Generating video for {scene.id}")
-                if scene.source_scene.type in ["meme", "generic"]:
-                    generated_video_url = await self.ttv_model.generate_video(
-                        start_image=scene.image_cloudflare_url,
-                        aspect_ratio=AspectRatio.PORTRAIT,
+                # Generate image
+                if not scene.image_path:
+                    scene.image_path = await self.generate_image(
+                        scene.source_scene, scene_temp_dir
                     )
-                    self.logger.debug(f"Generated video for {scene.source_scene.type}")
+                    self.state_manager.save_scene_state(scene)
 
-                    downloaded_video = await download_video_from_url(
-                        generated_video_url,
-                        os.path.join(scene_temp_dir, "generated_video.mp4"),
+                # Upload image to get a URL
+                self.logger.update_progress(increment=1, stage="IMAGE_UPLOAD")
+                if not scene.image_cloudflare_url:
+                    scene.image_cloudflare_url = upload_to_cloudflare(scene.image_path)
+                    self.state_manager.save_scene_state(scene)
+
+                # Generate video
+                self.logger.update_progress(increment=1, stage="VIDEO")
+                if not scene.final_video_path:
+                    scene.final_video_path = await self.generate_video(
+                        scene, scene_temp_dir
                     )
-                    final_video_path = await clip_video(
-                        downloaded_video,
-                        scene.duration,
-                        os.path.join(scene_temp_dir, "scene_clip.mp4"),
-                    )
-                    self.logger.debug(f"Clipped video for {scene.source_scene.type}")
+                    self.state_manager.save_scene_state(scene)
 
-                elif scene.source_scene.type == "twitter":
-                    final_video_path = await create_static_video(
-                        scene.image_path,
-                        scene.duration,
-                        os.path.join(scene_temp_dir, "scene_clip.mp4"),
-                    )
-                    self.logger.debug("Created static video for Twitter scene")
+                self.logger.update_progress(increment=1, stage="DONE")
+                return scene
 
-                scene.final_video_path = final_video_path
-                self.save_processed_scene(scene)
-                self.logger.debug(f"Saved final video for {scene.source_scene.type}")
-
-            else:
-                self.logger.debug(
-                    f"Using existing final video at {scene.final_video_path}"
-                )
-
-        except Exception as e:
-            raise SceneProcessorError(scene.id, e)
-
-        self.logger.update_progress()
-
-        return scene
+            except Exception as e:
+                self.logger.error(f"Error processing scene {scene.id}: {e}")
+                raise SceneProcessorError(scene.id, e)
 
     async def generate_image(self, scene: Scene, temp_dir: str) -> str:
         self.logger.debug(f"Generating image for scene type: {scene.type}")
@@ -188,7 +169,7 @@ class SceneProcessor:
         meme_image_path = os.path.join(
             temp_dir, f"meme_{hash(meme_scene.image_url)}.png"
         )
-        meme_image_path = save_image_to_file(meme_image, meme_image_path)
+        meme_image_path = await save_image_to_file(meme_image, meme_image_path)
         self.logger.debug(f"Saved meme image to {meme_image_path}")
 
         return meme_image_path
@@ -197,6 +178,7 @@ class SceneProcessor:
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         retry=retry_if_not_exception_type(TweetNotFoundError),
+        after=retry_callback,
     )
     async def generate_tweet_image(
         self, twitter_scene: TwitterContent, temp_dir: str
@@ -212,14 +194,16 @@ class SceneProcessor:
             await tweet.screenshot(tweet_url, path=tweet_filename, overwrite=True)
 
             if os.path.exists(tweet_filename):
-                tweet_image = open_image_from_file(tweet_filename)
-                tweet_image = resize_and_pad_image(tweet_image, AspectRatio.PORTRAIT)
+                tweet_image = await open_image_from_file(tweet_filename)
+                tweet_image = await resize_and_pad_image_async(
+                    tweet_image, AspectRatio.PORTRAIT
+                )
 
                 # Print resolution and aspect ratio of the tweet image
                 final_image_path = os.path.join(
                     temp_dir, f"tweet_{hash(tweet_url)}.png"
                 )
-                save_image_to_file(tweet_image, final_image_path)
+                await save_image_to_file(tweet_image, final_image_path)
 
                 self.logger.debug(f"Generated tweet image: {final_image_path}")
                 return final_image_path
@@ -241,33 +225,61 @@ class SceneProcessor:
             image_url = await text_to_image_model.generate_image(
                 generic_scene.image_description, AspectRatio.PORTRAIT
             )
+
+            image = await download_image_from_url(image_url)
+
+            image = resize_and_pad_image(image, AspectRatio.PORTRAIT, padding_percent=0)
+
             image_path = os.path.join(
                 temp_dir, f"generic_{hash(generic_scene.image_description)}.png"
             )
-            image = await download_image_from_url(image_url)
 
-            save_image_to_file(image, image_path)
+            await save_image_to_file(image, image_path)
             self.logger.debug(f"Generated generic image: {image_path}")
             return image_path
         except Exception:
             raise
 
-    def save_processed_scene(self, scene: SceneState):
-        self.logger.debug(f"Saving processed scene with ID: {scene.id}")
-        state = self.state_manager.load_state(skip_logs=True)
-        if not state.storyboard:
-            raise ValueError("Can't save scene without a storyboard.")
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        after=retry_callback,
+    )
+    async def generate_audio(self, script_chunk: str, temp_dir: str) -> str:
+        self.logger.debug("Generating audio for scene")
+        audio_generator = AudioGenerator(tts_model=self.tts_model, script=script_chunk)
+        audio_path = os.path.join(temp_dir, "scene_audio.wav")
+        file_path, _ = await audio_generator.generate_audio_and_save_to_file(audio_path)
+        return str(file_path)
 
-        # Find the index of the existing scene
-        existing_scene_index = next(
-            (i for i, s in enumerate(state.storyboard.scenes) if s.id == scene.id), None
-        )
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        after=retry_callback,
+    )
+    async def generate_video(self, scene: SceneState, temp_dir: str) -> str:
+        if not scene.image_path:
+            raise ValueError("Image is required to generate a video")
 
-        if existing_scene_index is not None:
-            # Replace the existing scene at the same index
-            state.storyboard.scenes[existing_scene_index] = scene
+        self.logger.debug("Generating video for scene")
+        if scene.source_scene.type == "twitter":
+            tmp_video_path = os.path.join(temp_dir, "scene_video.mp4")
+            video_path = await create_static_video(
+                scene.image_path, scene.duration, tmp_video_path
+            )
+            return video_path
         else:
-            # If the scene doesn't exist, append it to the end
-            state.storyboard.scenes.append(scene)
-
-        self.state_manager.save_state(state, skip_logs=True)
+            generated_video_url = await self.ttv_model.generate_video(
+                start_image=scene.image_cloudflare_url,
+                aspect_ratio=AspectRatio.PORTRAIT,
+            )
+            video_path = await download_video_from_url(
+                generated_video_url,
+                os.path.join(temp_dir, "generated_video.mp4"),
+            )
+            clipped_video = await clip_video(
+                video_path,
+                scene.duration,
+                os.path.join(temp_dir, "scene_clip.mp4"),
+            )
+        return clipped_video

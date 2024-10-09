@@ -1,0 +1,208 @@
+{
+    "audio": {
+        "duration": 39.7762358276644,
+        "path": "src/data/output/mkbhd/temp/full_audio.wav"
+    },
+    "final_video_path": "src/data/output/mkbhd/final_video.mp4",
+    "script": "Hold onto your keyboards, folks, we're diving into tech drama between DHH and Vercel, where developer tools and cloud services get roasted\u2014hard. DHH ain't here for complex frameworks like Next.js making devs question their life choices, while Vercel's all \"Hey look, we can handle DDoS attacks!\" namedropping security like a middle school flex.\n\nDHH's got beef with cloud costs, calling them overpriced, while Vercel's doing the Macarena with their financial models. Open source meritocracy versus corporate cloud complexity\u2014it's the epic clash of simple tools like Hotwire against stacked solutions. DHH champions simplicity; Vercel wants that cloud shine. It's passive-aggressive, the 2023 developer edition.",
+    "storyboard": {
+        "scenes": [
+            {
+                "audio_path": null,
+                "duration": 5.185185185185185,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_bc7bd1ad-0a95-4bdb-b6bf-b2cc51c2c5b3/scene_clip.mp4",
+                "id": "bc7bd1ad-0a95-4bdb-b6bf-b2cc51c2c5b3",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-4693853198670987442.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_bc7bd1ad-0a95-4bdb-b6bf-b2cc51c2c5b3/generic_-4693853198670987442.png",
+                "scene_index": 0,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A dramatic scene of two tech giants facing off, with keyboards and code flying in the background."
+                    },
+                    "meme": null,
+                    "script_chunk": "Hold onto your keyboards, folks, we're diving into tech drama between DHH and Vercel,",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.962962962962963,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_2ae26b9e-3fb9-4e34-ab2f-46635f2beb70/scene_clip.mp4",
+                "id": "2ae26b9e-3fb9-4e34-ab2f-46635f2beb70",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_554662088135276463.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_2ae26b9e-3fb9-4e34-ab2f-46635f2beb70/generic_554662088135276463.png",
+                "scene_index": 1,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A graphic of developer tools and cloud services on a barbeque grill with flames rising."
+                    },
+                    "meme": null,
+                    "script_chunk": "where developer tools and cloud services get roasted\u2014hard.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 5.185185185185185,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_80579e98-4a6e-4577-ae46-02be8b1f7dfd/scene_clip.mp4",
+                "id": "80579e98-4a6e-4577-ae46-02be8b1f7dfd",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_-1737536626874038321.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_80579e98-4a6e-4577-ae46-02be8b1f7dfd/meme_-1737536626874038321.png",
+                "scene_index": 2,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Confused Nick Young, also known as Swaggy P, refers to a reaction image featuring NBA basketball player Nick Young with question marks surrounding his head, used online to express confusion.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/o3bJ-irX2sM43J4LdOOOiA/E-NdlmiiUpvWXqaGt4i2z8g3zfZwu7rFSF-9JyMaZXf18kFEC3ZwDrTj2Z4zn5SeF-gp80US2N5FNkgMACFF-wCpP8YVZLbPpLnS1cApFCj3n2gE0ElASfVtHJK0dbI7wE0Up2CNwi78-a6ymUqLzDQoomgXiKSns4JuOfRnCOB3cDY_7ZwNAWpS2HQCgT_Kf6nZP3x9DlmyNdVW-8_MvA/0BSQfQelROr779IXVxlSZs1q4gDBmKcLcKwBSEsa9ws",
+                        "name": "Confused Nick Young"
+                    },
+                    "script_chunk": "DHH ain't here for complex frameworks like Next.js making devs question their life choices,",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 3.7037037037037033,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_01dec17c-a230-4cd7-8e81-e938cc7b6d15/scene_video.mp4",
+                "id": "01dec17c-a230-4cd7-8e81-e938cc7b6d15",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_-8129495841842334899.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_01dec17c-a230-4cd7-8e81-e938cc7b6d15/tweet_-8129495841842334899.png",
+                "scene_index": 3,
+                "source_scene": {
+                    "generic": null,
+                    "meme": null,
+                    "script_chunk": "while Vercel's all 'Hey look, we can handle DDoS attacks!'",
+                    "twitter": {
+                        "tweet_url": "https://x.com/emzraline/status/1839628407740518524"
+                    },
+                    "type": "twitter"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.5925925925925926,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_4d0d622e-a701-446b-9fa9-3f41455502c6/scene_clip.mp4",
+                "id": "4d0d622e-a701-446b-9fa9-3f41455502c6",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_4306919791409236929.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_4d0d622e-a701-446b-9fa9-3f41455502c6/generic_4306919791409236929.png",
+                "scene_index": 4,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A school setting where a student boasts about security achievements, holding a trophy labeled 'DDoS Defense'."
+                    },
+                    "meme": null,
+                    "script_chunk": "namedropping security like a middle school flex.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 5.185185185185185,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_eb717402-929e-4a74-b45f-0c88065ca315/scene_clip.mp4",
+                "id": "eb717402-929e-4a74-b45f-0c88065ca315",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_8790844929445360981.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_eb717402-929e-4a74-b45f-0c88065ca315/meme_8790844929445360981.png",
+                "scene_index": 5,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Roll Safe is an image macro series featuring a character grinning and pointing to his temple, with captions mocking poor decision making.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/B1ir9kjA9V57OIILuJjyFA/gSRc2N-Vl31rvOGua4arvgeUQ-GfOALP361vvb2L9Io6dCS6QYbsUmYN1iIUn_7UBpZlihclQQ1yuMfq7ZCWzYpFfpz_0hWVxAI6mbcSoosbaahKEK5PZUC4halYCi76XcCTqSKWI32NPNiTJVHUISwYs9Q_VaoL9B2UaBJSyL4/2L7V2E9vik20ZIwfVkXutpeQsLn4SECaD1Ly2m0sUP4",
+                        "name": "Roll Safe"
+                    },
+                    "script_chunk": "DHH's got beef with cloud costs, calling them overpriced, while Vercel's doing the Macarena",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 4.0740740740740735,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_e67b5230-b7f2-4a91-b0c1-4ec29454822b/scene_clip.mp4",
+                "id": "e67b5230-b7f2-4a91-b0c1-4ec29454822b",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-8854568299108527339.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_e67b5230-b7f2-4a91-b0c1-4ec29454822b/generic_-8854568299108527339.png",
+                "scene_index": 6,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "Two contrasting worlds: one of open source collaboration and another with corporate skyscrapers labeled 'Cloud Complexity'."
+                    },
+                    "meme": null,
+                    "script_chunk": "with their financial models. Open source meritocracy versus corporate cloud complexity\u2014",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 4.444444444444444,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_cb4cb405-9115-43a8-9fff-7cd334e539c1/scene_clip.mp4",
+                "id": "cb4cb405-9115-43a8-9fff-7cd334e539c1",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_3825161713012912268.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_cb4cb405-9115-43a8-9fff-7cd334e539c1/meme_3825161713012912268.png",
+                "scene_index": 7,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Swole Doge vs. Cheems refers to a comparison format highlighting historical and current representatives of the same group.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/3ayP-5_jEQaw-TNXpwaNqQ/viPjqLvq5xZBDvZJrGsCpwOjV8lC4xmtuPQOZOawCWO8Z2SVmbQSwHdAYE8TTMF4sSUV2R4jHcVh9iWO54p0vMZsSuoIDRq56ifs9ToLKp5t6OKh8XNtkTMhlVx4MpmsDiuXfNxbN2mWe5sFXprhBpGyqHzDNndTl5L1fdkAaT8/D2Z5m0x_ZgoN5obegY5nwQ0fjo7Gtm_7I7NvzSZnTq8",
+                        "name": "Swole Doge vs. Cheems"
+                    },
+                    "script_chunk": "it's the epic clash of simple tools like Hotwire against stacked solutions.",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.962962962962963,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_99585210-2b21-4340-a6bf-5ec643a338cf/scene_clip.mp4",
+                "id": "99585210-2b21-4340-a6bf-5ec643a338cf",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-8231113656402143302.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_99585210-2b21-4340-a6bf-5ec643a338cf/generic_-8231113656402143302.png",
+                "scene_index": 8,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "Two contrasting graphics: one labeled 'Simplicity' with minimalist design, the other 'Cloud Shine' with glitz and glamour."
+                    },
+                    "meme": null,
+                    "script_chunk": "DHH champions simplicity; Vercel wants that cloud shine.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 2.222222222222222,
+                "final_video_path": "src/data/output/mkbhd/temp/scene_d4a0c041-b764-4729-8618-12e37be3dfef/scene_clip.mp4",
+                "id": "d4a0c041-b764-4729-8618-12e37be3dfef",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_1498073216610470374.png",
+                "image_path": "src/data/output/mkbhd/temp/scene_d4a0c041-b764-4729-8618-12e37be3dfef/generic_1498073216610470374.png",
+                "scene_index": 9,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A timeline showing various passive-aggressive tech exchanges in 2023, ending with a 'Developer Edition' badge."
+                    },
+                    "meme": null,
+                    "script_chunk": "It's passive-aggressive, the 2023 developer edition.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            }
+        ]
+    }
+}

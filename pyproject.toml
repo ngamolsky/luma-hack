@@ -12,6 +12,7 @@ dependencies = [
     "moviepy>=1.0.3",
     "numpy>=2.1.1",
     "openai>=1.51.0",
+    "opencv-python>=4.10.0.84",
     "pillow>=10.4.0",
     "pyairtable>=2.3.3",
     "python-dotenv>=1.0.1",
@@ -27,6 +28,7 @@ dependencies = [
 main = "lumagen.main:main"
 clear = "lumagen.main:clear_state"
 run_scene = "lumagen.main:process_scene_by_id"
+load_source = "lumagen.main:load_source_from_url"
 
 [build-system]
 requires = ["hatchling"]

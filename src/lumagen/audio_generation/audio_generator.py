@@ -4,6 +4,7 @@ from typing import Tuple
 import numpy as np
 import soundfile as sf
 from pydantic import FilePath
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 from lumagen.models.tts.base import TTSModel
 from lumagen.utils.file_utils import save_bytes_to_file
@@ -18,6 +19,10 @@ class AudioGenerator:
         self.script = script
         self.logger = WorkflowLogger()
 
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+    )
     async def generate_audio_and_save_to_file(
         self, filepath: str
     ) -> Tuple[FilePath, float]:

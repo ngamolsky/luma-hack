@@ -11,10 +11,8 @@ import urllib.request
 
 from lumagen.state_manager import StateManager
 
-from .workflow_manager import WorkflowManager
-
-
-PROJECT_ID = "wordpress-drama"
+from lumagen.workflow_manager import WorkflowManager
+from lumagen.source_loader import SourceLoader
 
 
 def load_source(source):
@@ -41,26 +39,38 @@ def main():
         action="store_true",
         help="Clear the state of the project before running",
     )
+    parser.add_argument(
+        "--project-name", type=str, help="name of the project", default=None
+    )
     args = parser.parse_args()
 
     if args.clear:
         clear_state()
 
-    source_material = load_source(args.source)
+    source_material = SourceLoader.load(args.source, args.project_name)
     duration = args.duration
+    project_name = args.project_name
 
     workflow = WorkflowManager(
-        PROJECT_ID, source_material=source_material, duration=duration
+        project_name,
+        source_material=source_material,
+        duration=duration,
+        clear_temp_dir=False,
     )
 
     asyncio.run(workflow.run())
 
 
 def clear_state():
-    state_manager = StateManager(PROJECT_ID)
+    parser = argparse.ArgumentParser(description="Clear the state of the project")
+    parser.add_argument("--project-name", type=str, help="name of the project")
+    args = parser.parse_args()
+
+    project_name = args.project_name
+    state_manager = StateManager(project_name)
     state_manager.clear_state()
 
-    output_dir = os.path.join("src", "data", "output", PROJECT_ID)
+    output_dir = os.path.join("src", "data", "output", project_name)
 
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
@@ -69,11 +79,24 @@ def clear_state():
 def process_scene_by_id():
     parser = argparse.ArgumentParser(description="Run the Lumagen workflow")
     parser.add_argument("--scene_id", type=str, help="ID of the scene to process")
+    parser.add_argument("--project-name", type=str, help="name of the project")
     args = parser.parse_args()
 
     scene_id = args.scene_id
-    workflow = WorkflowManager(PROJECT_ID)
+    project_name = args.project_name
+    workflow = WorkflowManager(project_name)
     asyncio.run(workflow.generate_video_from_scene_id(scene_id))
+
+
+def load_source_from_url() -> str:
+    parser = argparse.ArgumentParser(description="Load source from URL")
+    parser.add_argument("--url", type=str, help="URL to load source from")
+    parser.add_argument("--project-name", type=str, help="name of the project")
+    args = parser.parse_args()
+
+    url = args.url
+    source_material = SourceLoader.load(url, args.project_name)
+    return source_material
 
 
 if __name__ == "__main__":

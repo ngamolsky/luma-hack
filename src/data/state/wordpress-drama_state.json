@@ -1,193 +1,186 @@
 {
     "audio": {
-        "duration": 37.721269841269844,
-        "path": "src/data/output/wordpress-drama/temp/script.wav"
+        "duration": 32.49678004535147,
+        "path": "src/data/output/wordpress-drama/temp/full_audio.wav"
     },
     "final_video_path": "src/data/output/wordpress-drama/final_video.mp4",
-    "script": "Today's episode, \u201cAs WordPress Turns,\" where the underdog becomes a... corporate drama villain? Yep! WordPress is the hero turned goateed villain, throwing down new licensing fees on WP Engine! \n\nWhy? Apparently, WP Engine's got more freeloaders than Spotify on student discount. Automattic \u2013 WordPress' big boss \u2013 thinks squeezing every penny from WP Engine equals community love. Spoiler: not quite! \n\nTech Twitter\u2019s raving. \u201cYou can\u2019t IPO and karaoke Kumbaya all at once,\" spits one user. Developers are split like an Android update \u2013 some see growth, others foresee chaos.\n\nFuture forecast? A licensing showdown forcing WordPress to pick sides and memes to abound. Stay tuned!",
+    "script": "The WordPress and WP Engine \"entanglement\" is the drama we never asked for but totally enjoy watching. WordPress, the OG of open-source freedom, decided to hit WP Engine with a licensing wrench after accusing them of being freeloaders. \n\nLet\u2019s talk fees, because, apparently, ensuring innovation is now just a pricey dream. The tech crowd? Naturally, they're polarized. Some folks say, \"Hey, let's support growth,\" while others scream, \"This ain't open-source if we're charging like a VIP club!\u201d \n\nAnd as the dust settles? We're all left pondering \"open\" if \"free\" morphs into \"fee,\" because nothing says \"community trust\" like setting up a toll booth.",
     "storyboard": {
         "scenes": [
             {
-                "duration": 3.7037037037037033,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_26a39b2f-7326-42e5-9bdf-7e17a08ab2b4/scene_clip.mp4",
-                "id": "26a39b2f-7326-42e5-9bdf-7e17a08ab2b4",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-8764004491139112441.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_26a39b2f-7326-42e5-9bdf-7e17a08ab2b4/generic_-8764004491139112441.png",
-                "source_scene": {
-                    "generic": {
-                        "image_description": "A dramatic TV soap opera title card with WordPress and WP Engine logos"
-                    },
-                    "meme": null,
-                    "script_chunk": "Today's episode, \u201cAs WordPress Turns,\" where the underdog becomes a...",
-                    "twitter": null,
-                    "type": "generic"
-                }
-            },
-            {
-                "duration": 4.0740740740740735,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_4f1e34e1-70af-4dcb-a12f-57a0245ab600/scene_clip.mp4",
-                "id": "4f1e34e1-70af-4dcb-a12f-57a0245ab600",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_5895819932208026474.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_4f1e34e1-70af-4dcb-a12f-57a0245ab600/meme_5895819932208026474.png",
+                "audio_path": null,
+                "duration": 4.814814814814815,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_bfb4c94e-9985-4b45-bf96-fcd27c349b9e/scene_clip.mp4",
+                "id": "bfb4c94e-9985-4b45-bf96-fcd27c349b9e",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_6210716682906568793.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_bfb4c94e-9985-4b45-bf96-fcd27c349b9e/meme_6210716682906568793.png",
+                "scene_index": 0,
                 "source_scene": {
                     "generic": null,
                     "meme": {
-                        "description": "Side Eyeing Chloe, also known as Side Eye Chloe, is a photoshop meme based on a screen capture of a concerned-looking little girl reacting to their parents' announcement.",
-                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728374400000/PXrq81MkYg7YJ9xgeYEjCg/IoE7jYj0N_9-8uAdwK7GCe30gXE0Mrv0b33diKc3KoJZCorfQqc9EoWOqjixw16do9bs2B2309RfjaZo2GHPAJU46TDzpID1pjM1iilgbzs_fKus4S-61X3M_ex162lI1OJLxHPBnXjSacCNawyIQY6x1pU3Ki9tPFKqBpqaTMs/WTghkYzEzWzFzcLLmOpRBKO99UrImOck_SlPqBmEF60",
-                        "name": "Side Eyeing Chloe"
+                        "description": "Distracted Boyfriend, also known as Man Looking at Other Woman, is an object labeling stock photo series in which a man looks at the backside of a woman walking by while another woman, presumably his romantic partner, looks on disapprovingly.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/UN1Wu_fEZSXiBpO6ikA65g/kqfVFID2hyegHsmy60S0iCyOa-2QUeT_jTOK0fso7FNjrxQ56vWjANrw6-n2B0Hr5RVphS3bMqL4eCweD_xF4EQcCRWy057MsK6n233TArL_CdvrRwC_ccq5Iw36YOv6K0gzuNq9SidADMrQqZZzb839EuxEWxx_cqeVEj7naZg/2abp-DWVwy7CbT7Iljh8lPI-pmRn1_yL6bvHrBNNXck",
+                        "name": "Distracted Boyfriend"
                     },
-                    "script_chunk": "corporate drama villain? Yep! WordPress is the hero turned goateed villain,",
+                    "script_chunk": "The WordPress and WP Engine \"entanglement\" is the drama we never asked for",
                     "twitter": null,
                     "type": "meme"
-                }
+                },
+                "video_path": null
             },
             {
-                "duration": 3.333333333333333,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_5fd82ff2-d079-4641-a94b-f28b26188b03/scene_clip.mp4",
-                "id": "5fd82ff2-d079-4641-a94b-f28b26188b03",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_1089254228778930371.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_5fd82ff2-d079-4641-a94b-f28b26188b03/generic_1089254228778930371.png",
+                "audio_path": null,
+                "duration": 3.7037037037037033,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_b7c3901d-bba4-4c95-afa1-ffc544703615/scene_clip.mp4",
+                "id": "b7c3901d-bba4-4c95-afa1-ffc544703615",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-3770325347553361559.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_b7c3901d-bba4-4c95-afa1-ffc544703615/generic_-3770325347553361559.png",
+                "scene_index": 1,
                 "source_scene": {
                     "generic": {
-                        "image_description": "A business executive slamming a paper on a desk with determination"
+                        "image_description": "A person with several open books and a laptop, engrossed in research."
                     },
                     "meme": null,
-                    "script_chunk": "throwing down new licensing fees on WP Engine! Why?",
+                    "script_chunk": "but totally enjoy watching. WordPress, the OG of open-source freedom,",
                     "twitter": null,
                     "type": "generic"
-                }
+                },
+                "video_path": null
             },
             {
-                "duration": 4.0740740740740735,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_cee65c46-a0a3-4ca8-aae1-efdfff84f75d/scene_clip.mp4",
-                "id": "cee65c46-a0a3-4ca8-aae1-efdfff84f75d",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_-1344981111966203800.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_cee65c46-a0a3-4ca8-aae1-efdfff84f75d/tweet_-1344981111966203800.png",
+                "audio_path": null,
+                "duration": 4.444444444444444,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_fb333b84-3b89-4e87-a47f-b77c4999eeb6/scene_clip.mp4",
+                "id": "fb333b84-3b89-4e87-a47f-b77c4999eeb6",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_-3456061875163080884.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_fb333b84-3b89-4e87-a47f-b77c4999eeb6/meme_-3456061875163080884.png",
+                "scene_index": 2,
+                "source_scene": {
+                    "generic": null,
+                    "meme": {
+                        "description": "Moo-Deng the Baby Hippo refers to a female pygmy hippopotamus named Moo Deng who was born at the Khao Kheow Open Zoo in Thailand in July 2024 and went viral online in September of that year. Moo Deng's photographs and videos, particularly an image in which she is being sprayed from a water hose while looking mortified, inspired fan art and memes on social media.",
+                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728518400000/yrsnPtF2EkR7AydcXHHVoQ/BYUoL0KM4OuUX1MEVKrGyYlRivTVVq6Y3zdOg6e1SjGImWYppXt8tLGbKMV4keOWKd6rrLZ26GhB6hGIicN8J02_nwCWdhISr1yUiI-kGdBGWq3psL6bygDmpG35srME76i3nH0t-QPk7xIAiuhEgQ/7wY9HZ3yd9XmQ7X4SCebC3IpXHcEnHAYtKxC9M0lGSY",
+                        "name": "Moo-Deng the Baby Hippo"
+                    },
+                    "script_chunk": "decided to hit WP Engine with a licensing wrench after accusing them",
+                    "twitter": null,
+                    "type": "meme"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 3.7037037037037033,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_f6417274-5727-4716-b8cf-9567627b7dc3/scene_clip.mp4",
+                "id": "f6417274-5727-4716-b8cf-9567627b7dc3",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_6371369375978333264.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_f6417274-5727-4716-b8cf-9567627b7dc3/generic_6371369375978333264.png",
+                "scene_index": 3,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A boardroom where people are negotiating with financial charts on the wall."
+                    },
+                    "meme": null,
+                    "script_chunk": "of being freeloaders. Let\u2019s talk fees, because, apparently, ensuring innovation",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 4.444444444444444,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_14d3c25b-cf86-462f-a56e-b1aac62f2101/scene_clip.mp4",
+                "id": "14d3c25b-cf86-462f-a56e-b1aac62f2101",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-5647645389514764931.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_14d3c25b-cf86-462f-a56e-b1aac62f2101/generic_-5647645389514764931.png",
+                "scene_index": 4,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A divided room filled with tech enthusiasts, half cheering, half discontent."
+                    },
+                    "meme": null,
+                    "script_chunk": "is now just a pricey dream. The tech crowd? Naturally, they're polarized.",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 4.814814814814815,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_91f5b8dd-c6a7-43d8-bd54-187ef2aeb90d/scene_video.mp4",
+                "id": "91f5b8dd-c6a7-43d8-bd54-187ef2aeb90d",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_-4566817033806298039.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_91f5b8dd-c6a7-43d8-bd54-187ef2aeb90d/tweet_-4566817033806298039.png",
+                "scene_index": 5,
                 "source_scene": {
                     "generic": null,
                     "meme": null,
-                    "script_chunk": "Apparently, WP Engine's got more freeloaders than Spotify on student discount.",
+                    "script_chunk": "Some folks say, \"Hey, let's support growth,\" while others scream, \"This ain't open-source",
+                    "twitter": {
+                        "tweet_url": "https://twitter.com/jamesivings/status/1839422193681481750"
+                    },
+                    "type": "twitter"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 4.444444444444444,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_7a451bee-c1f8-44ba-ba02-47f08d53673b/scene_clip.mp4",
+                "id": "7a451bee-c1f8-44ba-ba02-47f08d53673b",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_5012123288082294706.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_7a451bee-c1f8-44ba-ba02-47f08d53673b/generic_5012123288082294706.png",
+                "scene_index": 6,
+                "source_scene": {
+                    "generic": {
+                        "image_description": "A setting sun covered in dust clouds, signifying the end of a chaotic day."
+                    },
+                    "meme": null,
+                    "script_chunk": "if we're charging like a VIP club!\u201d And as the dust settles?",
+                    "twitter": null,
+                    "type": "generic"
+                },
+                "video_path": null
+            },
+            {
+                "audio_path": null,
+                "duration": 4.444444444444444,
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_0e88c988-0868-44e5-9f56-1522f7be1f4d/scene_video.mp4",
+                "id": "0e88c988-0868-44e5-9f56-1522f7be1f4d",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_261671957586865305.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_0e88c988-0868-44e5-9f56-1522f7be1f4d/tweet_261671957586865305.png",
+                "scene_index": 7,
+                "source_scene": {
+                    "generic": null,
+                    "meme": null,
+                    "script_chunk": "We're all left pondering \"open\" if \"free\" morphs into \"fee,\" because nothing",
                     "twitter": {
                         "tweet_url": "https://twitter.com/arvidkahl/status/1839445536686174387"
                     },
                     "type": "twitter"
-                }
+                },
+                "video_path": null
             },
             {
-                "duration": 3.7037037037037033,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_0abf4665-2959-4881-ba51-194c9dc0cbd8/scene_clip.mp4",
-                "id": "0abf4665-2959-4881-ba51-194c9dc0cbd8",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_5960931342162173955.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_0abf4665-2959-4881-ba51-194c9dc0cbd8/tweet_5960931342162173955.png",
-                "source_scene": {
-                    "generic": null,
-                    "meme": null,
-                    "script_chunk": "Automattic \u2013 WordPress' big boss \u2013 thinks squeezing every penny",
-                    "twitter": {
-                        "tweet_url": "https://twitter.com/jessethanley/status/1839569215000588641"
-                    },
-                    "type": "twitter"
-                }
-            },
-            {
+                "audio_path": null,
                 "duration": 3.333333333333333,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_e311d004-8c90-457c-b3b7-084a11ce4fd3/scene_clip.mp4",
-                "id": "e311d004-8c90-457c-b3b7-084a11ce4fd3",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_-5096202967388671527.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_e311d004-8c90-457c-b3b7-084a11ce4fd3/generic_-5096202967388671527.png",
+                "final_video_path": "src/data/output/wordpress-drama/temp/scene_b4d27679-3d55-4933-86a8-2c2535f7cf8c/scene_clip.mp4",
+                "id": "b4d27679-3d55-4933-86a8-2c2535f7cf8c",
+                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_7025020296894760456.png",
+                "image_path": "src/data/output/wordpress-drama/temp/scene_b4d27679-3d55-4933-86a8-2c2535f7cf8c/generic_7025020296894760456.png",
+                "scene_index": 8,
                 "source_scene": {
                     "generic": {
-                        "image_description": "A puzzled tech community discussing among themselves with thought bubbles"
+                        "image_description": "A bridge with a toll booth, symbolizing barriers in collaboration."
                     },
                     "meme": null,
-                    "script_chunk": "from WP Engine equals community love. Spoiler: not quite!",
+                    "script_chunk": "says \"community trust\" like setting up a toll booth.",
                     "twitter": null,
                     "type": "generic"
-                }
-            },
-            {
-                "duration": 4.444444444444444,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_95e35364-3cea-40db-9bda-45522b752b6d/scene_clip.mp4",
-                "id": "95e35364-3cea-40db-9bda-45522b752b6d",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_-1743573902298160830.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_95e35364-3cea-40db-9bda-45522b752b6d/meme_-1743573902298160830.png",
-                "source_scene": {
-                    "generic": null,
-                    "meme": {
-                        "description": "Confused Nick Young, also known as Swaggy P, is a reaction image featuring NBA basketball player Nick Young with question marks surrounding his head.",
-                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728374400000/gudEAyyBwgblnwCzXX-cYg/SdNuenM-Wdk1FcT718kHIoAkCHoXEJ72LL8YmGhShPTFeMbTnsPolZFoSExdIplmPerlNjYLW6aIREjnJ13CFQC5T5Yzd1ref9uQf1etEePtDEiQYdeXlF1KdRqdMVIBCHuh-Qur-ovn3w7oc18RtdA_8I3XvxzRMX39-gu3c0tTvUbkB5tlr1hmAIDo2vyD9vTd0u2LA4xXQbJExh5iPw/p_XDZChbKTyJ5gyKrxP0dAoEw7gdfDG4VZRhkA2z0Vk",
-                        "name": "Confused Nick Young"
-                    },
-                    "script_chunk": "Tech Twitter\u2019s raving. \u201cYou can\u2019t IPO and karaoke Kumbaya all at once,\"",
-                    "twitter": null,
-                    "type": "meme"
-                }
-            },
-            {
-                "duration": 4.0740740740740735,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_3b838939-93eb-43c0-bf67-d980f61ade2c/scene_clip.mp4",
-                "id": "3b838939-93eb-43c0-bf67-d980f61ade2c",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/meme_8103532823962112344.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_3b838939-93eb-43c0-bf67-d980f61ade2c/meme_8103532823962112344.png",
-                "source_scene": {
-                    "generic": null,
-                    "meme": {
-                        "description": "Distracted Boyfriend, also known as Man Looking at Other Woman, is an object labeling stock photo series.",
-                        "image_url": "https://v5.airtableusercontent.com/v3/u/33/33/1728374400000/1_lmbYZyIe_nDT_5qCKkXw/ezeugbi83-GR4iDP7dvz9IdduKXK5j3FudFoV8Ew7CbiTjg7thmusowZLDX2epeDRuS1Jb3Pbi6sejEUhcHUXMmSfL0DkpYCmlXWDwuiaVgIcOdLpfrROMmWxSNsB72VC_yXpVLclL1FZf3bqcyL-dWFYmmWD9A_q_B3L3lAsfE/u1A8hfykrefeaknVXDuZkrxEMpBOIT4iMfqAdUP0Has",
-                        "name": "Distracted Boyfriend"
-                    },
-                    "script_chunk": "spits one user. Developers are split like an Android update \u2013",
-                    "twitter": null,
-                    "type": "meme"
-                }
-            },
-            {
-                "duration": 2.222222222222222,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_dbb91337-bc33-464f-8c10-486305d79559/scene_clip.mp4",
-                "id": "dbb91337-bc33-464f-8c10-486305d79559",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_3179402885479548527.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_dbb91337-bc33-464f-8c10-486305d79559/generic_3179402885479548527.png",
-                "source_scene": {
-                    "generic": {
-                        "image_description": "Split visual of developers celebrating on one side and expressing concerns on the other"
-                    },
-                    "meme": null,
-                    "script_chunk": "some see growth, others foresee chaos.",
-                    "twitter": null,
-                    "type": "generic"
-                }
-            },
-            {
-                "duration": 3.7037037037037033,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_dd4f35c6-7993-48fe-9454-9f9afe96771f/scene_clip.mp4",
-                "id": "dd4f35c6-7993-48fe-9454-9f9afe96771f",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/tweet_6755776764852451226.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_dd4f35c6-7993-48fe-9454-9f9afe96771f/tweet_6755776764852451226.png",
-                "source_scene": {
-                    "generic": null,
-                    "meme": null,
-                    "script_chunk": "Future forecast? A licensing showdown forcing WordPress to pick sides",
-                    "twitter": {
-                        "tweet_url": "https://twitter.com/jessethanley/status/1839569215000588641"
-                    },
-                    "type": "twitter"
-                }
-            },
-            {
-                "duration": 2.222222222222222,
-                "final_video_path": "src/data/output/wordpress-drama/temp/scene_12ae23a0-2d5a-4bd7-8f77-252feb7268b7/scene_clip.mp4",
-                "id": "12ae23a0-2d5a-4bd7-8f77-252feb7268b7",
-                "image_cloudflare_url": "https://pub-2576bbab2f764a5a9c3fdc59f470ef1a.r2.dev/generic_1152157836169609739.png",
-                "image_path": "src/data/output/wordpress-drama/temp/scene_12ae23a0-2d5a-4bd7-8f77-252feb7268b7/generic_1152157836169609739.png",
-                "source_scene": {
-                    "generic": {
-                        "image_description": "A whimsical compilation of WordPress related memes on a colorful backdrop"
-                    },
-                    "meme": null,
-                    "script_chunk": "and memes to abound. Stay tuned!",
-                    "twitter": null,
-                    "type": "generic"
-                }
+                },
+                "video_path": null
             }
         ]
     }
