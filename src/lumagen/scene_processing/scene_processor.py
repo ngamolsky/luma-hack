@@ -89,23 +89,23 @@ class TweetNotFoundError(Exception):
 class SceneProcessor:
     def __init__(
         self,
-        project_id: str,
+        project_name: str,
         ttv_model: LumaAITextToVideoModel,
         tts_model: CartesiaTTSModel,
     ):
         self.logger = WorkflowLogger()
         self.ttv_model = ttv_model
         self.tts_model = tts_model
-        self.project_id = project_id
-        self.state_manager = StateManager(project_id)
+        self.project_id = project_name
+        self.state_manager = StateManager(project_name)
 
         os.makedirs(self.state_manager.temp_dir, exist_ok=True)
 
-        self.logger.debug(f"Initialized SceneProcessor for project {project_id}")
+        self.logger.debug(f"Initialized SceneProcessor for project {project_name}")
 
     async def process_scene(self, scene: SceneState) -> SceneState:
         async with self.logger.task(
-            f"[SCENE {scene.scene_index + 1 if scene.scene_index is not None else 1}] - {scene.source_scene.type} - {scene.id[:8]}..."
+            f"[SCENE {scene.scene_index + 1 if scene.scene_index is not None else 1 }] - {scene.source_scene.type} - {scene.id[:8]}..."
         ):
             self.logger.start_progress(total=3, stage="IMAGE")
             try:

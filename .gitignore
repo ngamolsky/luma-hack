@@ -1,4 +1,4 @@
 .env
 __pycache__
 
-src/data/output/
+src/data/

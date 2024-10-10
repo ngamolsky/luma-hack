@@ -433,6 +433,12 @@ wheels = [
 ]
 
 [[package]]
+name = "html2text"
+version = "2024.2.26"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1a/43/e1d53588561e533212117750ee79ad0ba02a41f52a08c1df3396bd466c05/html2text-2024.2.26.tar.gz", hash = "sha256:05f8e367d15aaabc96415376776cdd11afd5127a77fce6e36afc60c563ca2c32", size = 56527 }
+
+[[package]]
 name = "httpcore"
 version = "1.0.6"
 source = { registry = "https://pypi.org/simple" }
@@ -613,6 +619,7 @@ dependencies = [
     { name = "boto3" },
     { name = "cartesia" },
     { name = "fal-client" },
+    { name = "html2text" },
     { name = "lumaai" },
     { name = "moviepy" },
     { name = "numpy" },
@@ -633,6 +640,7 @@ requires-dist = [
     { name = "boto3", specifier = ">=1.35.33" },
     { name = "cartesia", specifier = ">=1.0.13" },
     { name = "fal-client", specifier = ">=0.4.1" },
+    { name = "html2text", specifier = ">=2024.2.26" },
     { name = "lumaai", specifier = ">=1.0.2" },
     { name = "moviepy", specifier = ">=1.0.3" },
     { name = "numpy", specifier = ">=2.1.1" },

@@ -1,7 +1,9 @@
 import asyncio
+import logging
 import traceback
 import uuid
-from typing import Optional
+from pathlib import Path
+from typing import Optional, Union
 
 from lumagen.audio_generation.audio_generator import AudioGenerator
 from lumagen.meme_db import get_memes
@@ -10,31 +12,40 @@ from lumagen.models.text_to_video.luma_t2v import LumaAITextToVideoModel
 from lumagen.models.tts.cartesia_tts import CartesiaTTSModel
 from lumagen.scene_processing.scene_processor import SceneProcessor, SceneProcessorError
 from lumagen.script_generation.script_generator import ScriptGenerator
+from lumagen.source_loader import SourceLoader
 from lumagen.state_manager import Audio, SceneState, StateManager, StoryboardState
 from lumagen.storyboard_generation.storyboard_generator import StoryboardGenerator
 from lumagen.utils import video_utils
 from lumagen.utils.logger import WorkflowLogger
 
-SCENE_PROCESSING_BATCH_SIZE = (
-    None  # Set to None to process all in parallel, or an integer for batching
-)
-
 
 class WorkflowManager:
     def __init__(
         self,
-        project_id: str,
-        duration: int = 40,
-        source_material: Optional[str] = None,
-        clear_temp_dir: bool = True,
+        project_name: str,
+        duration: Optional[int] = None,
+        source: Optional[Union[str, Path]] = None,
+        debug_mode: bool = False,
     ):
-        self.project_id = project_id
-        self.state_manager = StateManager(project_id)
-        self.source_material = source_material
-        self.duration = duration
+        self.project_name = project_name
+        self.state_manager = StateManager(project_name)
         self.state = self.state_manager.load_state()
-        self.clear_temp_dir = clear_temp_dir
         self.logger = WorkflowLogger()
+
+        if duration is not None and source is not None:
+            self.requested_duration = duration
+            self.debug_mode = debug_mode
+            self.source_markdown, self.source_path = SourceLoader.load(
+                project_name, source
+            )
+
+            if self.debug_mode:
+                self.logger.set_default_log_level(logging.DEBUG)
+        else:
+            self.requested_duration = None
+            self.debug_mode = False
+            self.source_markdown = None
+            self.source_path = None
 
     async def run(self):
         try:
@@ -54,9 +65,10 @@ class WorkflowManager:
 
         except Exception as e:
             self.logger.error(f"Error running workflow: {e}")
-            self.logger.error(
-                f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
-            )
+            if self.debug_mode:
+                self.logger.error(
+                    f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
+                )
         finally:
             self.logger.stop()
 
@@ -64,18 +76,21 @@ class WorkflowManager:
         async with self.logger.task("[SCRIPT]"):
             try:
                 if self.state.script is None:
-                    if not self.source_material:
+                    if not self.source_markdown:
                         raise ValueError(
-                            "Can't generate script without source material."
+                            "Can't generate script without source markdown."
                         )
 
+                    if self.requested_duration is None:
+                        raise ValueError("Can't generate script without duration.")
+
                     self.logger.log(
-                        f"Generating new script with duration {self.duration} seconds"
+                        f"Generating new script with duration {self.requested_duration} seconds"
                     )
 
                     script_generator = ScriptGenerator(text_model=OpenAITextModel())
                     self.state.script = await script_generator.generate_script(
-                        self.source_material, self.duration
+                        self.source_markdown, self.requested_duration
                     )
                     num_words = len(self.state.script.split())
                     self.logger.log(
@@ -88,9 +103,11 @@ class WorkflowManager:
 
             except Exception as e:
                 self.logger.error(f"Error generating script: {e}")
-                self.logger.error(
-                    f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
-                )
+
+                if self.debug_mode:
+                    self.logger.error(
+                        f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
+                    )
 
     async def generate_storyboard(self):
         async with self.logger.task("[STORYBOARD]"):
@@ -99,14 +116,17 @@ class WorkflowManager:
                     if not self.state.script:
                         raise ValueError("Can't generate storyboard without a script.")
 
-                    if not self.source_material:
+                    if not self.source_markdown:
                         raise ValueError(
-                            "Can't generate storyboard without source material."
+                            "Can't generate storyboard without source markdown."
                         )
 
-                    self.logger.log("Fetching memes to select from")
+                    if self.requested_duration is None:
+                        raise ValueError("Can't generate storyboard without duration.")
+
+                    self.logger.log("Fetching memes from database")
                     memes = get_memes()
-                    self.logger.log(f"Retrieved {len(memes)} memes")
+                    self.logger.debug(f"Retrieved {len(memes)} memes")
 
                     self.logger.log("Generating new storyboard")
                     storyboard_generator = StoryboardGenerator(
@@ -114,8 +134,8 @@ class WorkflowManager:
                     )
                     storyboard = await storyboard_generator.generate_storyboard(
                         script=self.state.script,
-                        duration=self.duration,
-                        reference_material=self.source_material,
+                        duration=self.requested_duration,
+                        reference_material=self.source_markdown,
                         memes=memes,
                     )
 
@@ -142,9 +162,11 @@ class WorkflowManager:
                     )
             except Exception as e:
                 self.logger.error(f"Error generating storyboard: {e}")
-                self.logger.error(
-                    f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
-                )
+
+                if self.debug_mode:
+                    self.logger.error(
+                        f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
+                    )
 
     async def generate_audio(self):
         async with self.logger.task("[AUDIO]"):
@@ -163,7 +185,7 @@ class WorkflowManager:
                     )
                     self.state.audio = Audio(path=str(result[0]), duration=result[1])
                     self.logger.log(
-                        f"Full audio generated successfully: {self.state.audio.path}"
+                        f"Full audio generated successfully: {self.state.audio.path} with duration {self.state.audio.duration}"
                     )
                     self.state_manager.save_state(self.state, on_step="AUDIO")
                 else:
@@ -172,9 +194,11 @@ class WorkflowManager:
                     )
             except Exception as e:
                 self.logger.error(f"Error generating full audio: {e}")
-                self.logger.error(
-                    f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
-                )
+
+                if self.debug_mode:
+                    self.logger.error(
+                        f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
+                    )
 
     async def process_scenes(self):
         async with self.logger.task("[SCENE_PROCESSING]"):
@@ -182,7 +206,7 @@ class WorkflowManager:
                 raise ValueError("Can't process scenes without a storyboard.")
 
             scene_processor = SceneProcessor(
-                project_id=self.project_id,
+                project_name=self.project_name,
                 ttv_model=LumaAITextToVideoModel(),
                 tts_model=CartesiaTTSModel(),
             )
@@ -250,38 +274,56 @@ class WorkflowManager:
 
                 self.logger.log(f"Final video created at {final_video_path}")
 
-                if self.clear_temp_dir:
+                if not self.debug_mode:
                     self.state_manager.clear_temp_dir()
 
             except Exception as e:
                 self.logger.error(f"Error stitching final video: {e}")
+
+                if self.debug_mode:
+                    self.logger.error(
+                        f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
+                    )
+
+    async def generate_video_from_scene_id(self, scene_id: str):
+        self.logger.start()
+        try:
+            if not self.state.storyboard:
+                raise ValueError("Can't generate video without a storyboard.")
+
+            scene = next(
+                (
+                    scene
+                    for scene in self.state.storyboard.scenes
+                    if scene.id == scene_id
+                ),
+                None,
+            )
+            if not scene:
+                raise ValueError(f"Scene with id {scene_id} not found in storyboard.")
+
+            self.logger.log(f"Processing scene with id {scene_id}")
+
+            scene_processor = SceneProcessor(
+                project_name=self.project_name,
+                ttv_model=LumaAITextToVideoModel(),
+                tts_model=CartesiaTTSModel(),
+            )
+
+            processed_scene = await scene_processor.process_scene(scene)
+            self.logger.log(f"Processed scene with id {scene_id}")
+
+            # After processing the scene, recompose the video
+            await self.stitch_final_video()
+        except Exception as e:
+            self.logger.error(f"Error generating video from scene id {scene_id}: {e}")
+            if self.debug_mode:
                 self.logger.error(
                     f"Traceback:\n{''.join(traceback.format_exception(type(e), e, e.__traceback__))}"
                 )
-
-    async def generate_video_from_scene_id(self, scene_id: str):
-        if not self.state.storyboard:
-            raise ValueError("Can't generate video without a storyboard.")
-
-        scene = next(
-            (scene for scene in self.state.storyboard.scenes if scene.id == scene_id),
-            None,
-        )
-        if not scene:
-            raise ValueError(f"Scene with id {scene_id} not found in storyboard.")
-
-        self.logger.log(f"Processing scene with id {scene_id}")
-
-        scene_processor = SceneProcessor(
-            project_id=self.project_id,
-            ttv_model=LumaAITextToVideoModel(),
-            tts_model=CartesiaTTSModel(),
-        )
-
-        processed_scene = await scene_processor.process_scene(scene)
-        self.logger.log(f"Processed scene with id {scene_id}")
-
-        # After processing the scene, recompose the video
-        await self.stitch_final_video()
+            raise
+        finally:
+            self.logger.log(f"Finished processing scene with id {scene_id}")
+            self.logger.stop()
 
         return processed_scene

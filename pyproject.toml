@@ -1,13 +1,14 @@
 [project]
 name = "lumagen"
 version = "0.1.0"
-description = "Add your description here"
+description = "Generate a youtube short from anything (well for now just text)!"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "boto3>=1.35.33",
     "cartesia>=1.0.13",
     "fal-client>=0.4.1",
+    "html2text>=2024.2.26",
     "lumaai>=1.0.2",
     "moviepy>=1.0.3",
     "numpy>=2.1.1",
@@ -23,12 +24,13 @@ dependencies = [
     "tweet-capture>=0.2.5",
 ]
 
+[project.optional-dependencies]
+system = [
+    "imagemagick",  # This is a system dependency, not a Python package
+]
 
 [project.scripts]
-main = "lumagen.main:main"
-clear = "lumagen.main:clear_state"
-run_scene = "lumagen.main:process_scene_by_id"
-load_source = "lumagen.main:load_source_from_url"
+lumagen = "lumagen.cli:main"
 
 [build-system]
 requires = ["hatchling"]

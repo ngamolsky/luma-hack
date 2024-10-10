@@ -1,103 +1,73 @@
 from dotenv import load_dotenv
 
+from lumagen.utils.logger import WorkflowLogger
+
 load_dotenv()
 
-# ruff: noqa
-import argparse
 import asyncio
-import os
-import shutil
-import urllib.request
+from pathlib import Path
+from typing import Union
 
-from lumagen.state_manager import StateManager
-
-from lumagen.workflow_manager import WorkflowManager
 from lumagen.source_loader import SourceLoader
+from lumagen.state_manager import StateManager
+from lumagen.workflow_manager import WorkflowManager
+
+DEFAULT_DURATION = 40
 
 
-def load_source(source):
-    if source.startswith(("http://", "https://")):
-        with urllib.request.urlopen(source) as response:
-            return response.read().decode("utf-8")
-    else:
-        with open(source, "r") as file:
-            return file.read()
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Run the Lumagen workflow")
-    parser.add_argument(
-        "--source",
-        default="src/data/source/source.md",
-        help="Path or URL to the source material",
-    )
-    parser.add_argument(
-        "--duration", type=int, default=40, help="Duration of the video in seconds"
-    )
-    parser.add_argument(
-        "--clear",
-        action="store_true",
-        help="Clear the state of the project before running",
-    )
-    parser.add_argument(
-        "--project-name", type=str, help="name of the project", default=None
-    )
-    args = parser.parse_args()
-
-    if args.clear:
-        clear_state()
-
-    source_material = SourceLoader.load(args.source, args.project_name)
-    duration = args.duration
-    project_name = args.project_name
-
+def main(
+    project_name: str,
+    source: Union[str, Path],
+    duration: int = DEFAULT_DURATION,
+    debug_mode: bool = False,
+):
     workflow = WorkflowManager(
         project_name,
-        source_material=source_material,
+        source=source,
         duration=duration,
-        clear_temp_dir=False,
+        debug_mode=debug_mode,
     )
 
     asyncio.run(workflow.run())
 
 
-def clear_state():
-    parser = argparse.ArgumentParser(description="Clear the state of the project")
-    parser.add_argument("--project-name", type=str, help="name of the project")
-    args = parser.parse_args()
+def clear_state(project_name: str):
+    logger = WorkflowLogger()
+    logger.start()
 
-    project_name = args.project_name
+    if not project_name:
+        raise ValueError("Project name is required")
+
     state_manager = StateManager(project_name)
     state_manager.clear_state()
-
-    output_dir = os.path.join("src", "data", "output", project_name)
-
-    if os.path.exists(output_dir):
-        shutil.rmtree(output_dir)
+    logger.stop()
 
 
-def process_scene_by_id():
-    parser = argparse.ArgumentParser(description="Run the Lumagen workflow")
-    parser.add_argument("--scene_id", type=str, help="ID of the scene to process")
-    parser.add_argument("--project-name", type=str, help="name of the project")
-    args = parser.parse_args()
+def process_scene_by_id(project_name: str, scene_id: str, debug_mode: bool = False):
+    if not project_name:
+        raise ValueError("Project name is required")
 
-    scene_id = args.scene_id
-    project_name = args.project_name
-    workflow = WorkflowManager(project_name)
+    if not scene_id:
+        raise ValueError("Scene ID is required")
+
+    workflow = WorkflowManager(project_name, debug_mode=debug_mode)
     asyncio.run(workflow.generate_video_from_scene_id(scene_id))
 
 
-def load_source_from_url() -> str:
-    parser = argparse.ArgumentParser(description="Load source from URL")
-    parser.add_argument("--url", type=str, help="URL to load source from")
-    parser.add_argument("--project-name", type=str, help="name of the project")
-    args = parser.parse_args()
+def load_source(
+    project_name: str, url: Union[str, Path], overwrite: bool = False
+) -> int:
+    logger = WorkflowLogger()
+    logger.start()
 
-    url = args.url
-    source_material = SourceLoader.load(url, args.project_name)
-    return source_material
-
-
-if __name__ == "__main__":
-    main()
+    try:
+        _, output_path = SourceLoader.load(project_name, url, overwrite)
+        logger.info(f"Source loaded successfully and saved to {output_path}")
+        logger.stop()
+        return 0  # Return 0 to indicate success
+    except Exception as e:
+        logger.error(f"Error loading source: {str(e)}")
+        logger.stop()
+        return 1  # Return non-zero to indicate failure
+    finally:
+        logger.stop()
