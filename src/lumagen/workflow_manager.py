@@ -26,6 +26,7 @@ class WorkflowManager:
         duration: Optional[int] = None,
         source: Optional[Union[str, Path]] = None,
         debug_mode: bool = False,
+        overwrite: bool = False,
     ):
         self.project_name = project_name
         self.state_manager = StateManager(project_name)
@@ -46,6 +47,9 @@ class WorkflowManager:
             self.debug_mode = False
             self.source_markdown = None
             self.source_path = None
+
+        if overwrite:
+            self.state_manager.clear_state()
 
     async def run(self):
         try:

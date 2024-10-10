@@ -24,11 +24,6 @@ dependencies = [
     "tweet-capture>=0.2.5",
 ]
 
-[project.optional-dependencies]
-system = [
-    "imagemagick",  # This is a system dependency, not a Python package
-]
-
 [project.scripts]
 lumagen = "lumagen.cli:main"
 

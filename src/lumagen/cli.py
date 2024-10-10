@@ -10,9 +10,14 @@ def main():
     # Run command
     run_parser = subparsers.add_parser("run", help="Run the Lumagen workflow")
     run_parser.add_argument("--project-name", required=True, help="Project name")
-    run_parser.add_argument("--source", required=True, help="Path to source file")
+    run_parser.add_argument(
+        "--source", required=True, help="Path to source file, url or markdown"
+    )
     run_parser.add_argument("--duration", required=False, help="Duration of the video")
     run_parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+    run_parser.add_argument(
+        "--overwrite", action="store_true", help="Overwrite existing content and state"
+    )
 
     # Clear command
     clear_parser = subparsers.add_parser("clear", help="Clear the state of the project")
@@ -39,7 +44,15 @@ def main():
     args = parser.parse_args()
 
     if args.command == "run":
-        lumagen_main.main(args.source, args.project_name, args.duration, args.debug)
+        kwargs = {
+            "project_name": args.project_name,
+            "source": args.source,
+            "debug_mode": args.debug,
+            "overwrite": args.overwrite,
+        }
+        if args.duration:
+            kwargs["duration"] = args.duration
+        lumagen_main.main(**kwargs)
     elif args.command == "clear":
         lumagen_main.clear_state(args.project_name)
     elif args.command == "load_source":

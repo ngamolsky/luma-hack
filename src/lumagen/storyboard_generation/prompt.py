@@ -82,7 +82,8 @@ Use three types of scenes - "meme", "twitter", and "generic".
 
 Choose the most appropriate scene type for the script chunk. 
 
-IMPORTANT: Only use the twitter scene type if the script chunk references a tweet.
+IMPORTANT: Only use the twitter scene type if the script chunk references a tweet AND the source material contains a tweet or X URL.
+
 
 ## Script Chunking:
 
@@ -117,6 +118,8 @@ If the scene is of type "twitter", you must select a twitter URL from the source
 Otherwise, the twitter field should be left empty.
 
 IMPORTANT: Never use the same tweet twice in a storyboard.
+
+It is completely ok to generate an entire storyboard without using the twitter scene type.
 
 ## Generic Selection:
 

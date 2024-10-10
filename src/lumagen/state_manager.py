@@ -185,6 +185,9 @@ class StateManager:
                     logging.ERROR,
                 )
 
+        # Clear the temp directory
+        self.clear_temp_dir()
+
     @classmethod
     def get_instance(cls, project_id: str) -> "StateManager":
         return cls(project_id)

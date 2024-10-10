@@ -80,9 +80,18 @@ class TwitterSceneError(Exception):
         self.stack_trace = traceback.format_exc()
 
 
+class InvalidTweetUrlError(Exception):
+    def __init__(self, tweet_url: str):
+        super().__init__(f"Invalid tweet URL: {tweet_url}")
+        self.tweet_url = tweet_url
+
+
 class TweetNotFoundError(Exception):
-    def __init__(self, tweet_url: str, message: str):
-        super().__init__(f"Tweet not found for URL {tweet_url}.")
+    def __init__(
+        self,
+        tweet_url: str,
+    ):
+        super().__init__(f"Tweet not found for URL {tweet_url}")
         self.tweet_url = tweet_url
 
 
@@ -139,7 +148,7 @@ class SceneProcessor:
                 return scene
 
             except Exception as e:
-                self.logger.error(f"Error processing scene {scene.id}: {e}")
+                self.logger.error(f"Error processing scene {scene.id}: {str(e)}")
                 raise SceneProcessorError(scene.id, e)
 
     async def generate_image(self, scene: Scene, temp_dir: str) -> str:
@@ -176,7 +185,7 @@ class SceneProcessor:
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
-        retry=retry_if_not_exception_type(TweetNotFoundError),
+        retry=retry_if_not_exception_type((TweetNotFoundError, InvalidTweetUrlError)),
         after=retry_callback,
     )
     async def generate_tweet_image(
@@ -210,10 +219,11 @@ class SceneProcessor:
                 raise ValueError(f"Failed to capture tweet from URL: {tweet_url}")
         except Exception as e:
             if "Tweets not found" in str(e):
-                raise TweetNotFoundError(
-                    tweet_url, "Tweet not found, check the url and retry."
-                )
-            raise TwitterSceneError(tweet_url, e)
+                raise TweetNotFoundError(tweet_url)
+            elif "Invalid tweet url" in str(e):
+                raise InvalidTweetUrlError(tweet_url)
+            else:
+                raise TwitterSceneError(tweet_url, e)
 
     async def generate_generic_image(
         self, generic_scene: GenericVideoContent, temp_dir: str

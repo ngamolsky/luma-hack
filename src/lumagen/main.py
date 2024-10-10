@@ -20,12 +20,14 @@ def main(
     source: Union[str, Path],
     duration: int = DEFAULT_DURATION,
     debug_mode: bool = False,
+    overwrite: bool = False,
 ):
     workflow = WorkflowManager(
         project_name,
         source=source,
         duration=duration,
         debug_mode=debug_mode,
+        overwrite=overwrite,
     )
 
     asyncio.run(workflow.run())
