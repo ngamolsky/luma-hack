@@ -1,14 +1,4 @@
-__pycache__/
 .env
-.python-version
-poetry.lock
-pyproject.toml
-.venv
-poetry.lock
-pyproject.toml
-audio.pcm
-captions.srt
-output.mp4
-final_output.mp4
-memes/
-tweets/
+__pycache__
+
+src/data/
