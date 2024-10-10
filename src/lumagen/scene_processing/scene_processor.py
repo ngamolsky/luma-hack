@@ -56,7 +56,6 @@ def retry_callback(retry_state: RetryCallState):
 class SceneProcessorError(Exception):
     def __init__(self, scene_id: str, original_exception: Exception):
         while isinstance(original_exception, RetryError):
-            print("Retry error", original_exception)
             if original_exception.last_attempt.exception():
                 original_exception = original_exception.last_attempt.exception()  # type: ignore
                 break
