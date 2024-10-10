@@ -92,3 +92,21 @@ To use LumaGen, you need to set up the following API keys in your environment:
   - `R2_BUCKET_PUBLIC_URL`: Public URL for your R2 bucket
 
 You can set these environment variables in a `.env` file in the root directory of your project. The application will automatically load these variables from the `.env` file when it runs.
+
+## Future Work
+
+### Source processing improvements
+
+Should be able to make this multimodal to understand images and video natively. Should test with other source text.
+
+### Audio / Video / Captions sync
+
+Currently audio is process separately, and captions are generated from script chunks in scenes so they don't always match up. Duration fo reach scene is calculated from word count which isn't ideal.
+
+### New scene types
+
+Should be decently easy to add new scene types for more creative video.
+
+### More Robust Twitter Scene
+
+Currently uses TweetCapture, which fails a decent amount. We could write our own scraper, which could also fetch the tweet text so we could make the duration more accurate.
